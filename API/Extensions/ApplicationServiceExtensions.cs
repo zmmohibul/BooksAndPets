@@ -1,4 +1,7 @@
 using API.Data;
+using API.Data.Repositories.Product;
+using API.Interfaces;
+using API.Interfaces.RepositoryInterfaces.Product;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions;
@@ -12,6 +15,7 @@ public static class ApplicationServiceExtensions
         {
             opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         });
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         return services;
     }
 }

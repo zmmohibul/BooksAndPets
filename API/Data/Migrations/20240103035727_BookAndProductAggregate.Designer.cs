@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240103012234_BookAndProductAggregate")]
+    [Migration("20240103035727_BookAndProductAggregate")]
     partial class BookAndProductAggregate
     {
         /// <inheritdoc />
@@ -135,7 +135,6 @@ namespace API.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -329,8 +328,7 @@ namespace API.Data.Migrations
                     b.HasOne("API.Entities.ProductAggregate.Category", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Parent");
                 });
