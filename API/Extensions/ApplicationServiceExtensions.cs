@@ -16,6 +16,7 @@ public static class ApplicationServiceExtensions
             opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         });
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IMeasureTypeRepository, MeasureTypeRepository>();
         return services;
     }
 }

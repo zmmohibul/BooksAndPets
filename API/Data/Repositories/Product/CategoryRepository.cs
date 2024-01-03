@@ -20,6 +20,7 @@ public class CategoryRepository : ICategoryRepository
     {
         var categories = await _context.ProductCategories
             .Where(pc => pc.ParentId == null)
+            .OrderBy(pc => pc.Name)
             .Select(pc => new CategoryDetailsDto(pc.Id, pc.Name))
             .ToListAsync();
 
@@ -33,7 +34,7 @@ public class CategoryRepository : ICategoryRepository
             .Include(pc => pc.Children)
             .Select(pc => new CategoryDetailsWithSubCategoryDto(
                 new CategoryDetailsDto(pc.Id, pc.Name),
-                pc.Children.Select(child => new CategoryDetailsDto(child.Id, child.Name))
+                pc.Children.OrderBy(pc => pc.Name).Select(child => new CategoryDetailsDto(child.Id, child.Name))
             ))
             .FirstOrDefaultAsync();
 
@@ -44,6 +45,7 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<Result<CategoryDetailsDto>> CreateCategory(CreateCategoryDto createCategoryDto)
     {
+        createCategoryDto.Name = createCategoryDto.Name.ToLower();
         if (await _context.ProductCategories.AnyAsync(pc => pc.Name.Equals(createCategoryDto.Name)))
         {
             return new Result<CategoryDetailsDto>(400, "A category with given name already exist");
@@ -69,7 +71,7 @@ public class CategoryRepository : ICategoryRepository
         _context.ProductCategories.Add(category);
         
         return await _context.SaveChangesAsync() > 0 
-            ? new Result<CategoryDetailsDto>(200, new CategoryDetailsDto(category.Id, category.Name)) 
+            ? new Result<CategoryDetailsDto>(201, new CategoryDetailsDto(category.Id, category.Name)) 
             : new Result<CategoryDetailsDto>(400, "Failed to create category");
     }
 

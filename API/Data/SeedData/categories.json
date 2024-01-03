@@ -1,0 +1,27 @@
+[
+  {
+    "Id": 1,
+    "Name": "Science Fiction & Fantasy",
+    "ParentId": null  
+  },
+  {
+    "Id": 2,
+    "Name": "Science Fiction",
+    "ParentId": 1
+  },
+  {
+    "Id": 3,
+    "Name": "First Contact",
+    "ParentId": 2
+  },
+  {
+    "Id": 4,
+    "Name": "Alternate History",
+    "ParentId": 2
+  },
+  {
+    "Id": 5,
+    "Name": "Time Travel",
+    "ParentId": 2
+  }
+]
