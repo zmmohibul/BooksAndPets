@@ -19,6 +19,7 @@ public class CategoryRepository : ICategoryRepository
     public async Task<Result<ICollection<CategoryDetailsDto>>> GetAllCategories()
     {
         var categories = await _context.ProductCategories
+            .AsNoTracking()
             .Where(pc => pc.ParentId == null)
             .OrderBy(pc => pc.Name)
             .Select(pc => new CategoryDetailsDto(pc.Id, pc.Name))
@@ -30,6 +31,7 @@ public class CategoryRepository : ICategoryRepository
     public async Task<Result<CategoryDetailsWithSubCategoryDto>> GetCategoryById(int id)
     {
         var category = await _context.ProductCategories
+            .AsNoTracking()
             .Where(pc => pc.Id == id)
             .Include(pc => pc.Children)
             .Select(pc => new CategoryDetailsWithSubCategoryDto(

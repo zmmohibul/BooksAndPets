@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Product;
 
-[Route("product/[controller]")]
+[Route("products/[controller]")]
 public class MeasureTypesController : BaseApiController
 {
     private readonly IMeasureTypeRepository _measureTypeRepository;
@@ -17,13 +17,13 @@ public class MeasureTypesController : BaseApiController
     [HttpGet]
     public async Task<IActionResult> GetAllMeasureTypes()
     {
-        return HandleResult(await _measureTypeRepository.GetAllMeasureTypes());
+        return HandleResult(await _measureTypeRepository.GetAllMeasureTypeDtos());
     }
     
     [HttpGet("{id}")]
     public async Task<IActionResult> GetMeasureTypeById(int id)
     {
-        return HandleResult(await _measureTypeRepository.GetMeasureTypeById(id));
+        return HandleResult(await _measureTypeRepository.GetMeasureTypeDtoById(id));
     }
 
     [HttpPost]

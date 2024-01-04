@@ -6,4 +6,7 @@ public class CreateMeasureTypeDto
 {
     [Required] 
     public string Type { get; set; }
+    
+    [Required] 
+    public string Description { get; set; }
 }

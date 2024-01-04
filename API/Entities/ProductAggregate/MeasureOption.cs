@@ -2,7 +2,7 @@ using API.Entities.BaseEntities;
 
 namespace API.Entities.ProductAggregate;
 
-public class MeasureOption : BaseEntity
+public class MeasureOption : BaseEntityWithDescription
 {
     public string Option { get; set; }
 
