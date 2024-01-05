@@ -3,6 +3,7 @@ using API.Entities.BookAggregate;
 using API.Interfaces;
 using API.Interfaces.RepositoryInterfaces.Book;
 using API.Utils;
+using API.Utils.QueryParameters;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -23,16 +24,15 @@ public class AuthorRepository : IAuthorRepository
         _mapper = mapper;
     }
 
-    public async Task<Result<ICollection<AuthorDto>>> GetAllAuthorDtos()
+    public async Task<Result<PaginatedList<AuthorDto>>> GetAllAuthorDtos(QueryParameter queryParameter)
     {
-        var authors = await _context.Authors
+        var query = _context.Authors
             .AsNoTracking()
             .Include(author => author.AuthorPicture)
             .OrderBy(author => author.Name)
-            .ProjectTo<AuthorDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+            .ProjectTo<AuthorDto>(_mapper.ConfigurationProvider);
 
-        return new Result<ICollection<AuthorDto>>(200, authors);
+        return new Result<PaginatedList<AuthorDto>>(200, await PaginatedList<AuthorDto>.CreatePaginatedListAsync(query, queryParameter.PageNumber, queryParameter.PageSize));
     }
 
     public async Task<Result<AuthorDto>> GetAuthorDtoById(int authorId)

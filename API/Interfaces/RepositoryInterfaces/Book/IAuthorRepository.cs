@@ -1,11 +1,12 @@
 using API.Dtos.Book.Author;
 using API.Utils;
+using API.Utils.QueryParameters;
 
 namespace API.Interfaces.RepositoryInterfaces.Book;
 
 public interface IAuthorRepository
 {
-    public Task<Result<ICollection<AuthorDto>>> GetAllAuthorDtos();
+    public Task<Result<PaginatedList<AuthorDto>>> GetAllAuthorDtos(QueryParameter queryParameter);
     public Task<Result<AuthorDto>> GetAuthorDtoById(int authorId);
     
     public Task<Result<AuthorDto>> CreateAuthor(CreateAuthorDto createAuthorDto);

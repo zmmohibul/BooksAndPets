@@ -1,5 +1,6 @@
 using API.Dtos.Book.Author;
 using API.Interfaces.RepositoryInterfaces.Book;
+using API.Utils.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -15,9 +16,9 @@ public class AuthorsController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAuthors()
+    public async Task<IActionResult> GetAllAuthors([FromQuery] QueryParameter queryParameter)
     {
-        return HandleResult(await _authorRepository.GetAllAuthorDtos());
+        return HandleResult(await _authorRepository.GetAllAuthorDtos(queryParameter));
     }
 
     [HttpGet("{id}")]
