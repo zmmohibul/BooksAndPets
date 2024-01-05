@@ -25,6 +25,8 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IMeasureOptionRepository, MeasureOptionRepository>();
         
         services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IPublisherRepository, PublisherRepository>();
+        services.AddScoped<ILanguageRepository, LanguageRepository>();
         
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddScoped<IPictureUploadService, PictureUploadService>();
