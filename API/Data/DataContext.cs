@@ -12,6 +12,7 @@ public class DataContext : DbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> ProductCategories { get; set; }
+    public DbSet<Department> ProductDepartments { get; set; }
     public DbSet<MeasureType> ProductMeasureTypes { get; set; }
     public DbSet<MeasureOption> ProductMeasureOptions { get; set; }
     

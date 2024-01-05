@@ -9,4 +9,7 @@ public class Category : BaseEntityWithName
     public ICollection<Category> Children { get; set; }
     
     public ICollection<Product> Products { get; set; }
+
+    public int DepartmentId { get; set; }
+    public Department Department { get; set; }
 }

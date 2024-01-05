@@ -1,7 +1,9 @@
 using API.Dtos.Book.Author;
 using API.Dtos.Book.Language;
 using API.Dtos.Book.Publisher;
+using API.Dtos.Product.Department;
 using API.Entities.BookAggregate;
+using API.Entities.ProductAggregate;
 using AutoMapper;
 
 namespace API.Utils;
@@ -10,6 +12,11 @@ public class AutoMapperProfiles : Profile
 {
     public AutoMapperProfiles()
     {
+        CreateMap<Department, DepartmentDto>()
+            .ForMember(dest => dest.Department, opt => opt.MapFrom(src => src.Name));
+        CreateMap<CreateDepartmentDto, Department>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Department));
+        
         CreateMap<Author, AuthorDto>()
             .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom(src => src.AuthorPicture.Url));
         

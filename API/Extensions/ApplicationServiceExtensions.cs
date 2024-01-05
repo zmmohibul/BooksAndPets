@@ -21,6 +21,7 @@ public static class ApplicationServiceExtensions
         });
         
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IMeasureTypeRepository, MeasureTypeRepository>();
         services.AddScoped<IMeasureOptionRepository, MeasureOptionRepository>();
         

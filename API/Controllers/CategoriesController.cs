@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[Route("products/[controller]")]
+[Route("products/departments/{departmentId}/[controller]")]
 public class CategoriesController : BaseApiController
 {
     private readonly ICategoryRepository _categoryRepository;
@@ -15,36 +15,36 @@ public class CategoriesController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllCategories()
+    public async Task<IActionResult> GetAllCategories(int departmentId)
     {
-        return HandleResult(await _categoryRepository.GetAllCategories());
+        return HandleResult(await _categoryRepository.GetAllCategories(departmentId));
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategoryById(int id)
+    [HttpGet("{categoryId}")]
+    public async Task<IActionResult> GetCategoryById(int departmentId, int categoryId)
     {
-        return HandleResult(await _categoryRepository.GetCategoryById(id));
+        return HandleResult(await _categoryRepository.GetCategoryById(departmentId, categoryId));
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto createCategoryDto)
+    public async Task<IActionResult> CreateCategory(int departmentId, [FromBody] CreateCategoryDto createCategoryDto)
     {
-        var result = await _categoryRepository.CreateCategory(createCategoryDto);
+        var result = await _categoryRepository.CreateCategory(departmentId, createCategoryDto);
         
         return result.StatusCode == 201 
-            ? CreatedAtAction(nameof(GetCategoryById), new { id = result.Data.Id }, result.Data) 
+            ? CreatedAtAction(nameof(GetCategoryById), new { departmentId = departmentId, categoryId = result.Data.Id }, result.Data) 
             : HandleResult(result);
     }
     
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCategory(int id, UpdateCategoryDto updateCategoryDto)
+    [HttpPut("{categoryId}")]
+    public async Task<IActionResult> UpdateCategory(int departmentId, int categoryId, UpdateCategoryDto updateCategoryDto)
     {
-        return HandleResult(await _categoryRepository.UpdateCategory(id, updateCategoryDto));
+        return HandleResult(await _categoryRepository.UpdateCategory(departmentId, categoryId, updateCategoryDto));
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCategory(int id)
+    [HttpDelete("{categoryId}")]
+    public async Task<IActionResult> DeleteCategory(int departmentId, int categoryId)
     {
-        return HandleResult(await _categoryRepository.DeleteCategory(id));
+        return HandleResult(await _categoryRepository.DeleteCategory(departmentId, categoryId));
     }
 }
