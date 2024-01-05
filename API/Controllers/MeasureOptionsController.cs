@@ -2,7 +2,7 @@ using API.Dtos.Product.MeasureOption;
 using API.Interfaces.RepositoryInterfaces.Product;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.Product;
+namespace API.Controllers;
 
 [Route("products/measureTypes/{measureTypeId}/[controller]")]
 public class MeasureOptionsController : BaseApiController
