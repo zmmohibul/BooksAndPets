@@ -91,7 +91,10 @@ public class MeasureTypeRepository : IMeasureTypeRepository
 
     private IQueryable<MeasureTypeDto> GetMeasureTypeQueryable(int? id = null, bool asNoTracking = false)
     {
-        var query = _context.ProductMeasureTypes.AsQueryable();
+        var query = _context.ProductMeasureTypes
+            .OrderBy(mt => mt.Type)
+            .AsQueryable();
+        
         if (asNoTracking)
         {
             query = query.AsNoTracking();
@@ -107,7 +110,9 @@ public class MeasureTypeRepository : IMeasureTypeRepository
                 pmt.Id,
                 pmt.Type,
                 pmt.Description,
-                pmt.MeasureOptions.Select(mo => new MeasureOptionDto(mo.Id, mo.Option, mo.Description))
+                pmt.MeasureOptions
+                    .OrderBy(mo => mo.Option)
+                    .Select(mo => new MeasureOptionDto(mo.Id, mo.Option, mo.Description))
             ));
     }
 }

@@ -23,6 +23,7 @@ public class PublisherRepository : IPublisherRepository
     {
         var publishers = await _context.Publishers
             .AsNoTracking()
+            .OrderBy(pub => pub.Name)
             .ProjectTo<PublisherDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
         return new Result<ICollection<PublisherDto>>(200, publishers);

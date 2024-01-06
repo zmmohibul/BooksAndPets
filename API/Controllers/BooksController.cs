@@ -1,5 +1,6 @@
 using API.Dtos.BookDtoAggregate.BookDtos;
 using API.Interfaces.RepositoryInterfaces;
+using API.Utils.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -15,9 +16,9 @@ public class BooksController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllBooks()
+    public async Task<IActionResult> GetAllBooks([FromQuery] BookQueryParameters bookQueryParameters)
     {
-        return HandleResult(await _bookRepository.GetAllBookDtos());
+        return HandleResult(await _bookRepository.GetAllBookDtos(bookQueryParameters));
     }
 
     [HttpGet("{id}")]

@@ -28,6 +28,7 @@ public class DepartmentRepository : IDepartmentRepository
     {
         var departments = await _context.ProductDepartments
             .AsNoTracking()
+            .OrderBy(dep => dep.Name)
             .ProjectTo<DepartmentDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
         return new Result<ICollection<DepartmentDto>>(200, departments);

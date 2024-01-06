@@ -23,6 +23,7 @@ public class LanguageRepository : ILanguageRepository
     {
         var languages = await _context.Languages
             .AsNoTracking()
+            .OrderBy(lang => lang.Name)
             .ProjectTo<LanguageDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
         return new Result<ICollection<LanguageDto>>(200, languages);
