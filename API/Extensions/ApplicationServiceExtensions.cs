@@ -1,9 +1,7 @@
 using API.Data;
-using API.Data.Repositories.Book;
-using API.Data.Repositories.Product;
+using API.Data.Repositories;
 using API.Interfaces;
-using API.Interfaces.RepositoryInterfaces.Book;
-using API.Interfaces.RepositoryInterfaces.Product;
+using API.Interfaces.RepositoryInterfaces;
 using API.Services;
 using API.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +23,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IMeasureTypeRepository, MeasureTypeRepository>();
         services.AddScoped<IMeasureOptionRepository, MeasureOptionRepository>();
         
+        services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IAuthorRepository, AuthorRepository>();
         services.AddScoped<IPublisherRepository, PublisherRepository>();
         services.AddScoped<ILanguageRepository, LanguageRepository>();

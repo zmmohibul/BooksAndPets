@@ -1,5 +1,5 @@
-using API.Dtos.Book.Author;
-using API.Interfaces.RepositoryInterfaces.Book;
+using API.Dtos.BookDtoAggregate.AuthorDtos;
+using API.Interfaces.RepositoryInterfaces;
 using API.Utils.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
 

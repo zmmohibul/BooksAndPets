@@ -1,5 +1,5 @@
-using API.Dtos.Product.Department;
-using API.Interfaces.RepositoryInterfaces.Product;
+using API.Dtos.ProductDtoAggregate.DepartmentDtos;
+using API.Interfaces.RepositoryInterfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 

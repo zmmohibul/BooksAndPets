@@ -1,5 +1,5 @@
-using API.Dtos.Book.Publisher;
-using API.Interfaces.RepositoryInterfaces.Book;
+using API.Dtos.BookDtoAggregate.PublisherDtos;
+using API.Interfaces.RepositoryInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;

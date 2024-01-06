@@ -1,5 +1,5 @@
-using API.Dtos.Product.MeasureType;
-using API.Interfaces.RepositoryInterfaces.Product;
+using API.Dtos.ProductDtoAggregate.MeasureTypeDtos;
+using API.Interfaces.RepositoryInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;

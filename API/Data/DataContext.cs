@@ -27,17 +27,29 @@ public class DataContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Product>()
+            .HasOne(product => product.Department)
+            .WithMany(dep => dep.Products)
+            .HasForeignKey(prod => prod.DepartmentId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Department>()
+            .HasMany(dep => dep.Products)
+            .WithOne(prod => prod.Department)
+            .HasForeignKey(x => x.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         modelBuilder.Entity<Price>()
             .HasOne(p => p.MeasureType)
             .WithMany(m => m.Prices)
             .HasForeignKey(p => p.MeasureTypeId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
         
         modelBuilder.Entity<Price>()
             .HasOne(p => p.MeasureOption)
             .WithMany(m => m.Prices)
             .HasForeignKey(p => p.MeasureOptionId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Category>()
             .HasOne(s => s.Parent)
