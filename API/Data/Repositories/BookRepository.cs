@@ -40,7 +40,7 @@ public class BookRepository : IBookRepository
             bookQueryable = bookQueryable.Where(book =>
                 book.Authors.Select(ba => ba.Id).Intersect(bookQueryParameters.AuthorIds).Any());
         }
-        
+
         if (bookQueryParameters.PublisherIds != null)
         {
             bookQueryable = bookQueryable.Where(book => bookQueryParameters.PublisherIds.Contains(book.PublisherId));
@@ -97,76 +97,13 @@ public class BookRepository : IBookRepository
 
     public async Task<Result<BookDto>> CreateBook(CreateBookDto createBookDto)
     {
-        var department = await _context.ProductDepartments
-            .FirstOrDefaultAsync(pd => pd.Id == createBookDto.DepartmentId);
-        if (department == null)
+        var productCreationResult = await _productRepository.CreateProduct(createBookDto);
+        if (productCreationResult.Data == null)
         {
-            return new Result<BookDto>(400, $"Department id: {createBookDto.DepartmentId} does not exist");
+            return new Result<BookDto>(productCreationResult.StatusCode, productCreationResult.Message);
         }
 
-        var categories = await _context.ProductCategories
-            .Where(pc => createBookDto.CategoryIds.Contains(pc.Id))
-            .ToListAsync();
-        foreach (var category in categories.Where(category => category.DepartmentId != createBookDto.DepartmentId))
-        {
-            return new Result<BookDto>(400,
-                $"Category id: {category.Id} does not belong to Department id: {createBookDto.DepartmentId}");
-        }
-
-        var categoryIds = categories.Select(category => category.Id).ToHashSet();
-        var notFoundCategoryIds = new StringBuilder();
-        foreach (var id in createBookDto.CategoryIds)
-        {
-            if (!categoryIds.Contains(id))
-            {
-                notFoundCategoryIds.Append($"{id}, ");
-            }
-        }
-
-        if (notFoundCategoryIds.Length > 0)
-        {
-            notFoundCategoryIds.Remove(notFoundCategoryIds.Length - 2, 2);
-            return new Result<BookDto>(400, $"Category id: {notFoundCategoryIds} does not exist");
-        }
-
-        var priceList = new List<Price>();
-        foreach (var price in createBookDto.PriceList)
-        {
-            var measureType = await _context.ProductMeasureTypes.FirstOrDefaultAsync(mt => mt.Id == price.MeasureTypeId);
-            if (measureType == null)
-            {
-                return new Result<BookDto>(400, $"Measure Type id: {price.MeasureTypeId} does not exist.");
-            }
-
-            var measureOption =
-                await _context.ProductMeasureOptions.FirstOrDefaultAsync(pmo => pmo.Id == price.MeasureOptionId);
-            if (measureOption == null)
-            {
-                return new Result<BookDto>(400, $"Measure Option id: {price.MeasureOptionId} does not exist.");
-            }
-
-            if (measureOption.MeasureTypeId != price.MeasureTypeId)
-            {
-                return new Result<BookDto>(400, $"Measure Option id: {price.MeasureOptionId} does not belong to Measure Type id: {price.MeasureTypeId}");
-            }
-            
-            priceList.Add(new Price()
-            {
-                UnitPrice = price.UnitPrice,
-                MeasureType = measureType,
-                MeasureOption = measureOption,
-                QuantityInStock = price.QuantityInStock
-            });
-        }
-        
-        var product = new Product
-        {
-            Name = createBookDto.Name,
-            Description = createBookDto.Description,
-            Department = department,
-            Categories = categories,
-            PriceList = priceList
-        };
+        var product = productCreationResult.Data;
 
         var publisher = await _context.Publishers.FirstOrDefaultAsync(pub => pub.Id == createBookDto.PublisherId);
         if (publisher == null)
@@ -213,28 +150,9 @@ public class BookRepository : IBookRepository
         };
 
         _context.Books.Add(book);
-        if (await _context.SaveChangesAsync() <= 0)
-            return new Result<BookDto>(400, "Failed to create book. Try again later.");
-        
-        var bookDto = new BookDto
-        {
-            Id = book.Id,
-            Name = book.Product.Name,
-            Description = book.Product.Description,
-            Department = _mapper.Map<DepartmentDto>(department),
-            Categories = _mapper.Map<ICollection<CategoryDetailsDto>>(categories),
-            PriceList = _mapper.Map<ICollection<PriceDto>>(priceList),
-            Pictures = new List<ProductPictureDto>(),
-            HighlightText = book.HighlightText,
-            Publisher = _mapper.Map<PublisherDto>(publisher),
-            Authors = _mapper.Map<ICollection<AuthorDto>>(authors),
-            Language = _mapper.Map<LanguageDto>(language),
-            PageCount = book.PageCount,
-            PublicationDate = book.PublicationDate,
-            ISBN = book.ISBN
-        };
-
-        return new Result<BookDto>(201, bookDto);
+        return await _context.SaveChangesAsync() <= 0 
+            ? new Result<BookDto>(400, "Failed to create book. Try again later.") 
+            : new Result<BookDto>(201, _mapper.Map<BookDto>(book));
     }
 
     public async Task<Result<BookDto>> UpdateBook(int id, UpdateBookDto updateBookDto)
