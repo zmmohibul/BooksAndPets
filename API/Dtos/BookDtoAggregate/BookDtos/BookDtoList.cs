@@ -8,12 +8,12 @@ public class BookDtoList
 {
     public BookDtoList(PaginatedList<BookDto> books, ICollection<AuthorDto> authors, ICollection<PublisherDto> publishers)
     {
-        BookData = books;
+        Data = books;
         Authors = authors;
         Publishers = publishers;
     }
 
-    public PaginatedList<BookDto> BookData { get; set; }
+    public PaginatedList<BookDto> Data { get; set; }
     public ICollection<AuthorDto> Authors { get; set; }
     public ICollection<PublisherDto> Publishers { get; set; }
 }

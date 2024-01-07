@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Fahrenheit 451",
+    "description": "description",
+    "departmentId": 1,
+    "categoryIds": [1, 2, 3],
+    "priceList": [
+      {
+        "unitPrice": 330,
+        "measureTypeId": 1,
+        "measureOptionId": 2,
+        "quantityInStock": 22
+      },
+      {
+        "unitPrice": 530,
+        "measureTypeId": 1,
+        "measureOptionId": 1,
+        "quantityInStock": 12
+      }
+    ],
+    "highlightText": "highlightText",
+    "publisherId": 1,
+    "languageId": 1,
+    "authorIds": [1],
+    "pageCount": 249,
+    "publicationDate": "2015-05-16T05:50:06.7199222-04:00",
+    "iSBN": "asdfjij123213"
+  }
+]

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class ProductAndBookUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -174,13 +174,13 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
                     HighlightText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublisherId = table.Column<int>(type: "int", nullable: false),
                     LanguageId = table.Column<int>(type: "int", nullable: false),
                     PageCount = table.Column<int>(type: "int", nullable: false),
                     PublicationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ISBN = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ISBN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

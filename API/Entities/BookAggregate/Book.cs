@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Entities.BookAggregate;
 
-public class Book : BaseEntity 
+public class Book : BaseProduct 
 {
-    public int ProductId { get; set; }
-    public Product Product { get; set; }
+    // public int ProductId { get; set; }
+    // public Product Product { get; set; }
     
     public string HighlightText { get; set; }
     

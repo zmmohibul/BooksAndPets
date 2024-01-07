@@ -1,3 +1,5 @@
+using API.Entities;
+using API.Entities.BaseEntities;
 using API.Entities.BookAggregate;
 using API.Entities.ProductAggregate;
 using Microsoft.EntityFrameworkCore;

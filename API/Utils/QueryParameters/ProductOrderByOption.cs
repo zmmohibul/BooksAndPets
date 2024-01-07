@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace API.Utils.QueryParameters;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum OrderByOption
+public enum ProductOrderByOption
 {
     [EnumMember(Value = "PriceAsc")]
     PriceAsc,

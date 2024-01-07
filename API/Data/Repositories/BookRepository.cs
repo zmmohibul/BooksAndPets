@@ -20,34 +20,20 @@ namespace API.Data.Repositories;
 public class BookRepository : IBookRepository
 {
     private readonly DataContext _context;
+    private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
 
-    public BookRepository(DataContext context, IMapper mapper)
+    public BookRepository(DataContext context, IProductRepository productRepository, IMapper mapper)
     {
         _context = context;
+        _productRepository = productRepository;
         _mapper = mapper;
     }
 
     public async Task<Result<BookDtoList>> GetAllBookDtos(BookQueryParameters bookQueryParameters)
     {
         var bookQueryable = _context.Books.AsQueryable();
-
-        if (bookQueryParameters.CategoryId != null)
-        {
-            bookQueryable = bookQueryable.Where(book => book.Product.Categories.Any(pc => pc.Id == bookQueryParameters.CategoryId));
-        }
-
-        if (bookQueryParameters.MinPrice != null)
-        {
-            bookQueryable = bookQueryable.Where(book =>
-                book.Product.PriceList.Select(p => p.UnitPrice).Min() >= bookQueryParameters.MinPrice);
-        }
-        
-        if (bookQueryParameters.MaxPrice != null)
-        {
-            bookQueryable = bookQueryable.Where(book =>
-                book.Product.PriceList.Select(p => p.UnitPrice).Max() <= bookQueryParameters.MaxPrice);
-        }
+        bookQueryable = _productRepository.ApplyProductFilters<Book>(bookQueryable, bookQueryParameters);
 
         if (bookQueryParameters.AuthorIds != null)
         {
@@ -69,9 +55,9 @@ public class BookRepository : IBookRepository
         {
             bookQueryParameters.SearchTerm = bookQueryParameters.SearchTerm.ToLower();
             bookQueryable = bookQueryable.Where(book => 
-                book.Product.Name.Contains(bookQueryParameters.SearchTerm)
+                book.Authors.All(author => author.Name.Contains(bookQueryParameters.SearchTerm))
+                || book.Product.Name.Contains(bookQueryParameters.SearchTerm)
                 || book.Product.Categories.Any(category => category.Name.Contains(bookQueryParameters.SearchTerm))
-                || book.Authors.All(author => author.Name.Contains(bookQueryParameters.SearchTerm))
                 || book.Publisher.Name.Contains(bookQueryParameters.SearchTerm)
                 || book.Language.Name.Contains(bookQueryParameters.SearchTerm));
         }
@@ -88,16 +74,7 @@ public class BookRepository : IBookRepository
             .Distinct()
             .ProjectTo<PublisherDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
-
-        bookQueryable = bookQueryParameters.OrderByOption switch
-        {
-            OrderByOption.NameAsc => bookQueryable.OrderBy(book => book.Product.Name),
-            OrderByOption.NameDesc => bookQueryable.OrderByDescending(book => book.Product.Name),
-            OrderByOption.PriceAsc => bookQueryable.OrderBy(book => book.Product.PriceList.Min(p => p.UnitPrice)),
-            OrderByOption.PriceDesc => bookQueryable.OrderByDescending(book => book.Product.PriceList.Min(p => p.UnitPrice)),
-            _ => bookQueryable.OrderBy(book => book.Product.Name)
-        };
-
+        
         var books = await PaginatedList<BookDto>
             .CreatePaginatedListAsync(bookQueryable.ProjectTo<BookDto>(_mapper.ConfigurationProvider),
                 bookQueryParameters.PageNumber, bookQueryParameters.PageSize);
