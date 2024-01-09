@@ -9,6 +9,6 @@ namespace API.Interfaces.RepositoryInterfaces;
 public interface IProductRepository
 {
     public Task<Result<Product>> CreateProduct(CreateProductDto createProductDto);
-    public IQueryable<T> ApplyProductFilters<T>(IQueryable<T> queryable, ProductQueryParameters parameters)
-        where T : BaseProduct;
+    public Task<Result<Product>> ValidateIdsInCreateProductDto(Product product, CreateProductDto createProductDto);
+    public IQueryable<T> GetFilteredQueryable<T>(ProductQueryParameters parameters) where T : BaseProduct;
 }

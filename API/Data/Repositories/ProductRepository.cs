@@ -21,6 +21,15 @@ public class ProductRepository : IProductRepository
 
     public async Task<Result<Product>> CreateProduct(CreateProductDto createProductDto)
     {
+        var product = new Product();
+        var valResult = await ValidateIdsInCreateProductDto(product, createProductDto);
+        return valResult.StatusCode != 200 
+            ? new Result<Product>(valResult.StatusCode, valResult.Message) 
+            : new Result<Product>(200, product);
+    }
+
+    public async Task<Result<Product>> ValidateIdsInCreateProductDto(Product product, CreateProductDto createProductDto)
+    {
         var department = await _context.ProductDepartments
             .FirstOrDefaultAsync(pd => pd.Id == createProductDto.DepartmentId);
         if (department == null)
@@ -82,21 +91,19 @@ public class ProductRepository : IProductRepository
                 QuantityInStock = price.QuantityInStock
             });
         }
-        
-        var product = new Product
-        {
-            Name = createProductDto.Name,
-            Description = createProductDto.Description,
-            Department = department,
-            Categories = categories,
-            PriceList = priceList
-        };
+
+        product.Name = createProductDto.Name.ToLower();
+        product.Description = createProductDto.Description;
+        product.Department = department;
+        product.Categories = categories;
+        product.PriceList = priceList;
 
         return new Result<Product>(200, product);
     }
     
-    public IQueryable<T> ApplyProductFilters<T>(IQueryable<T> queryable, ProductQueryParameters parameters) where T : BaseProduct
+    public IQueryable<T> GetFilteredQueryable<T>(ProductQueryParameters parameters) where T : BaseProduct
     {
+        var queryable = _context.Set<T>().AsQueryable();
         if (parameters.CategoryId != null)
         {
             queryable = queryable.Where((baseProd => baseProd.Product.Categories.Any(pc => pc.Id == parameters.CategoryId)));
@@ -132,6 +139,6 @@ public class ProductRepository : IProductRepository
             queryable = queryable.OrderBy(book => book.Product.Name);
         }
 
-        return queryable.AsQueryable();
+        return queryable;
     }
 }
