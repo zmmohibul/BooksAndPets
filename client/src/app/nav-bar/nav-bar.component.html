@@ -1,0 +1,104 @@
+<div class="px-3 py-1 nav d-flex justify-content-between align-items-center">
+  <div class="left-lg">
+    <a class="navbar-brand text-white" routerLink="">
+      Books & Pets
+    </a>
+  </div>
+
+  <div class="left-sm">
+    <a class="navbar-brand text-white" routerLink="">
+      B&P
+    </a>
+  </div>
+
+
+  <div class="center ">
+    <div class="input-group">
+      <div mdbDropdown class="dropdown">
+        <button mdbDropdownToggle class="btn btn-outline-secondary bg-light dropdown-toggle" type="button" aria-expanded="false">
+          All
+        </button>
+        <ul mdbDropdownMenu class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
+      </div>
+      <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search" />
+    </div>
+  </div>
+
+
+
+  <div class="right-lg">
+    <ul class="navbar-nav flex-row justify-content-between align-items-center" >
+      <ng-container>
+        <div class="dropdown me-3 btn-user-lg" mdbDropdown>
+          <button
+            aria-expanded="false"
+            class="btn btn-outline-secondary text-white dropdown-toggle"
+            id="dropdownMenuButton2"
+            mdbDropdownToggle
+            type="button"
+          >
+            <i class="fas fa-user me-2"></i> Guest
+          </button>
+
+          <ul
+            aria-labelledby="dropdownMenuButton2"
+            class="dropdown-menu dropdown-menu-light"
+            mdbDropdownMenu
+          >
+            <li><a class="dropdown-item" routerLink="auth">Login</a></li>
+            <li><a class="dropdown-item" routerLink="auth/register">Register</a></li>
+          </ul>
+        </div>
+      </ng-container>
+
+      <li class="nav-item me-lg-0">
+        <a class="nav-link" routerLink="cart">
+<!--           <span class="badge badge-pill bg-danger">1</span>-->
+          <span><i class="fas fa-shopping-cart fa-lg text-white"></i></span>
+          <span class="badge rounded-pill badge-notification bg-danger me-3">{{ 7 }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="right-sm">
+    <button type="button" class="btn btn-sm btn-outline-secondary text-white" (click)="openModal(template)"><i class="fas fa-user"></i></button>
+
+    <ng-template #template>
+      <div class="modal-header">
+        <h2 class="display-6 fw-normal">Guest Account</h2>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <button type="submit" class="btn btn-dark w-50 my-2 mb-2">
+            Login
+          </button>
+        </div>
+        <hr>
+        <h5 class="fw-normal text-center">Don't have an account?</h5>
+        <div class="text-center">
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            mdbRipple
+            rippleColor="dark"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
