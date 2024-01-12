@@ -1,0 +1,42 @@
+<h5 class="mb-2">Categories</h5>
+<div class="ms-1">
+  <p
+    (click)="onDepartmentClick()"
+    class="my-1"
+    [ngClass]="{ 'fw-bold': currentCategoryId() == 0, 'link': currentCategoryId() != 0 }"
+  >
+    <i
+      class="fas fa-caret-left me-1" [ngClass]="{ 'd-none': currentCategoryId() == 0 }"></i> {{ department.name }}
+  </p>
+
+  <p
+    class="my-1 link"
+    *ngFor="let e of [].constructor(_categoryList().length > 0 ? _categoryList().length - 1 : 0); let i = index"
+    (click)="onCategoryClick(_categoryList()[i].id)"
+  >
+    <i
+      class="fas fa-caret-left me-1" [ngClass]="{ 'd-none': currentCategoryId() == 0 }"></i> {{ _categoryList()[i].name }}
+  </p>
+
+  <ng-container *ngIf="_categoryList().length > 0">
+    <p
+      class="my-1"
+      [ngClass]="{ 'fw-bold ms-3': currentCategoryId() == _categoryList()[_categoryList().length - 1].id, 'link': currentCategoryId() != _categoryList()[_categoryList().length - 1].id }"
+      (click)="onCategoryClick(_categoryList()[_categoryList().length - 1].id)"
+    >
+      {{ _categoryList()[_categoryList().length - 1].name }}
+    </p>
+  </ng-container>
+
+  <ng-container *ngIf="hasSubCategory()">
+    <p
+      class="my-1 link ms-4"
+      *ngFor="let subCategory of _categoryList()[_categoryList().length - 1].subCategories"
+      (click)="onCategoryClick(subCategory.id)"
+
+    >
+      {{ subCategory.name }}
+    </p>
+  </ng-container>
+</div>
+

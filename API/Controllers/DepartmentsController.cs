@@ -3,7 +3,7 @@ using API.Interfaces.RepositoryInterfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
-[Route("products/[controller]")]
+[Route("api/products/[controller]")]
 public class DepartmentsController : BaseApiController
 {
     private readonly IDepartmentRepository _departmentRepository;

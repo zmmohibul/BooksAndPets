@@ -2,26 +2,43 @@
   {
     "Id": 1,
     "Name": "Science Fiction & Fantasy",
+    "DepartmentId": 1,
     "ParentId": null
   },
   {
     "Id": 2,
     "Name": "Science Fiction",
+    "DepartmentId": 1,
     "ParentId": 1
   },
   {
     "Id": 3,
     "Name": "Adventure",
+    "DepartmentId": 1,
     "ParentId": 2
   },
   {
     "Id": 4,
     "Name": "Alternate History",
+    "DepartmentId": 1,
     "ParentId": 2
   },
   {
     "Id": 5,
     "Name": "Time Travel",
+    "DepartmentId": 1,
     "ParentId": 2
+  },
+  {
+    "Id": 6,
+    "Name": "Fantasy",
+    "DepartmentId": 1,
+    "ParentId": 1
+  },
+  {
+    "Id": 7,
+    "Name": "Science & Math",
+    "DepartmentId": 1,
+    "ParentId": null
   }
 ]

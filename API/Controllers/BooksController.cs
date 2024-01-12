@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class BooksController : BaseApiController
 {
     private readonly IBookRepository _bookRepository;

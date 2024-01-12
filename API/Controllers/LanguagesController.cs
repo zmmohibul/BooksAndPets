@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[Route("books/[controller]")]
+[Route("api/books/[controller]")]
 public class LanguagesController : BaseApiController
 {
     private readonly ILanguageRepository _languageRepository;

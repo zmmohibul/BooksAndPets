@@ -4,8 +4,8 @@ import { RouterOutlet } from '@angular/router';
 import {MdbCollapseModule} from "mdb-angular-ui-kit/collapse";
 import {MdbDropdownModule} from "mdb-angular-ui-kit/dropdown";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NavBarComponent} from "./nav-bar/nav-bar.component";
-import {FooterComponent} from "./footer/footer.component";
+import {NavBarComponent} from "./core/nav-bar/nav-bar.component";
+import {FooterComponent} from "./core/footer/footer.component";
 
 @Component({
   selector: 'app-root',

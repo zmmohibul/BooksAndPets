@@ -1,0 +1,16 @@
+<div class="main container-fluid my-3 ">
+  <div class="row">
+    <div class="col-md-2">
+      <app-category-list
+        [categoryList]="categories()"
+        (categoryClick)="onCategoryClick($event)"
+        (departmentClick)="onDepartmentClick($event)"
+      ></app-category-list>
+      <hr class="my-4">
+      <app-category-list></app-category-list>
+    </div>
+    <div class="col-md-10">
+      <div class="ms-3">book list</div>
+    </div>
+  </div>
+</div>

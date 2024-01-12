@@ -42,8 +42,7 @@ public class CategoryRepository : ICategoryRepository
             .Include(pc => pc.Department)
             .Include(pc => pc.Children)
             .Select(pc => new CategoryDetailsWithSubCategoryDto(
-                new CategoryDetailsDto(pc.Id, pc.Name),
-                pc.Children.OrderBy(pc => pc.Name).Select(child => new CategoryDetailsDto(child.Id, child.Name))
+                pc.Id, pc.Name, pc.ParentId,pc.Children.OrderBy(pc => pc.Name).Select(child => new CategoryDetailsDto(child.Id, child.Name))
             ))
             .FirstOrDefaultAsync();
         

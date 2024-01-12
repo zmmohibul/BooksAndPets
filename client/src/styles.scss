@@ -8,3 +8,13 @@
 
 // MDB SCSS
 @import "mdb-angular-ui-kit/assets/scss/mdb.scss";
+
+.link {
+  color: #164894;
+  cursor: pointer;
+  //text-decoration: underline;
+}
+
+.link:hover {
+  color: #3773cc;
+}

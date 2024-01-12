@@ -1,7 +1,7 @@
 [
   {
-    "id": 1,
-    "name": "book",
-    "description": "Books of several categories & genres."
+    "Id": 1,
+    "Name": "book",
+    "Description": "Books of several categories & genres."
   }
 ]

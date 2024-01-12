@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[Route("products/[controller]")]
+[Route("api/products/[controller]")]
 public class MeasureTypesController : BaseApiController
 {
     private readonly IMeasureTypeRepository _measureTypeRepository;
