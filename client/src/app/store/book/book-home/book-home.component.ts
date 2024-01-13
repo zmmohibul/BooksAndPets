@@ -67,18 +67,6 @@ export class BookHomeComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.getScreenWidth = window.innerWidth;
-    // if (this.getScreenWidth === 1080) {
-    //   console.log(this.getScreenWidth);
-    //
-    //   this.sidebarService.hideBar.set(false);
-    //   this.sidebarService.$hideBar.pipe(take(1)).subscribe({
-    //     next: (data) => {
-    //       if (data) {
-    //         this.sidebarService.$hideBar.next(false);
-    //       }
-    //     },
-    //   });
-    // }
     this.getScreenHeight = window.innerHeight;
   }
 }

@@ -1,12 +1,14 @@
 <div class="main d-flex">
-  <div class="sidebar" [ngClass]="{ 'hide-sidebar': (this.sidebarService.$hideBar | async) }">
-    <app-category-list
-      [categoryList]="categories()"
-      (categoryClick)="onCategoryClick($event)"
-      (departmentClick)="onDepartmentClick($event)"
-    ></app-category-list>
-    <hr class="my-4">
-    <app-category-list></app-category-list>
+  <div class="sidebar-wrapper" [ngClass]="{ 'hide-sidebar': (this.sidebarService.$hideBar | async) }">
+    <div class="sidebar" >
+      <app-category-list
+        [categoryList]="categories()"
+        (categoryClick)="onCategoryClick($event)"
+        (departmentClick)="onDepartmentClick($event)"
+      ></app-category-list>
+      <hr class="my-4">
+    </div>
+
   </div>
 <!--  <div class="vr mx-3"></div>-->
   <div class="item-list">
