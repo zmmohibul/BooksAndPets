@@ -1,6 +1,18 @@
+.mn {
+  position: relative;
+}
 .nav {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  z-index: 9;
   background-color: #322626;
   //background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+}
+
+.fa-bars {
+  display: none;
+  cursor: pointer;
 }
 
 .btn {
@@ -21,6 +33,12 @@
 
 .btn-user-sm {
   display: none;
+}
+
+@media only screen and (max-width: 1080px) {
+  .fa-bars {
+    display: block;
+  }
 }
 
 @media only screen and (max-width: 1020px) {

@@ -1,3 +1,54 @@
 .main {
   height: 100vh;
+  //position: relative;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #f8f6f6;
+  min-height: 100%;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+
+.item-list {
+  width: 100%;
+  position: relative;
+  animation: moveListDefault 0.5s;
+  animation-fill-mode: forwards;
+  left: 300px;
+}
+@keyframes moveListDefault {
+
+  to {
+    transform: translateX(-300px);
+  }
+}
+
+
+@media only screen and (max-width: 1080px) {
+  .sidebar {
+    position: fixed;
+    z-index: 2;
+    border-right: 1px solid #c79a9a;
+    left: -600px;
+    transition: transform 0.6s;
+  }
+  .hide-sidebar {
+    transform: translateX(600px);
+  }
+
+  .item-list {
+    position: relative;
+    left: 300px;
+    animation: moveList 0.5s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes moveList {
+    to {
+      transform: translateX(-300px);
+    }
+  }
 }

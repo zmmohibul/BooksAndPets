@@ -1,4 +1,4 @@
-<h5 class="mb-2">Categories</h5>
+<h5 class="h5 mb-2 fw-bold">Categories</h5>
 <div class="ms-1">
   <p
     (click)="onDepartmentClick()"
@@ -13,6 +13,8 @@
     class="my-1 link"
     *ngFor="let e of [].constructor(_categoryList().length > 0 ? _categoryList().length - 1 : 0); let i = index"
     (click)="onCategoryClick(_categoryList()[i].id)"
+    [ngClass]="{ 'ms-2': currentCategoryId() == 0 }"
+
   >
     <i
       class="fas fa-caret-left me-1" [ngClass]="{ 'd-none': currentCategoryId() == 0 }"></i> {{ _categoryList()[i].name }}
@@ -21,7 +23,7 @@
   <ng-container *ngIf="_categoryList().length > 0">
     <p
       class="my-1"
-      [ngClass]="{ 'fw-bold ms-3': currentCategoryId() == _categoryList()[_categoryList().length - 1].id, 'link': currentCategoryId() != _categoryList()[_categoryList().length - 1].id }"
+      [ngClass]="{ 'fw-bold ms-3': currentCategoryId() == _categoryList()[_categoryList().length - 1].id, 'link': currentCategoryId() != _categoryList()[_categoryList().length - 1].id, 'ms-2': currentCategoryId() == 0 }"
       (click)="onCategoryClick(_categoryList()[_categoryList().length - 1].id)"
     >
       {{ _categoryList()[_categoryList().length - 1].name }}

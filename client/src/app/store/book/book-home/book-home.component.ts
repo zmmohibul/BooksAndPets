@@ -1,8 +1,16 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryListComponent } from '../../sidebar/category-list/category-list.component';
 import { Category } from '../../../models/category-models/category';
 import { CategoryService } from '../../../services/category.service';
+import { SidebarService } from '../../../services/sidebar.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-book-home',
@@ -14,9 +22,14 @@ import { CategoryService } from '../../../services/category.service';
 export class BookHomeComponent implements OnInit {
   categories: WritableSignal<Category[]> = signal([]);
 
-  constructor(public categoryService: CategoryService) {}
+  constructor(
+    public categoryService: CategoryService,
+    public sidebarService: SidebarService,
+  ) {}
   ngOnInit() {
     this.loadAllCategories(1);
+    this.getScreenWidth = window.innerWidth;
+    this.getScreenHeight = window.innerHeight;
   }
 
   loadAllCategories(departmentId: number) {
@@ -47,5 +60,25 @@ export class BookHomeComponent implements OnInit {
 
   onDepartmentClick(departmentId: number) {
     this.loadAllCategories(departmentId);
+  }
+
+  public getScreenWidth: any;
+  public getScreenHeight: any;
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenWidth = window.innerWidth;
+    // if (this.getScreenWidth === 1080) {
+    //   console.log(this.getScreenWidth);
+    //
+    //   this.sidebarService.hideBar.set(false);
+    //   this.sidebarService.$hideBar.pipe(take(1)).subscribe({
+    //     next: (data) => {
+    //       if (data) {
+    //         this.sidebarService.$hideBar.next(false);
+    //       }
+    //     },
+    //   });
+    // }
+    this.getScreenHeight = window.innerHeight;
   }
 }

@@ -7,6 +7,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { MdbRippleDirective } from 'mdb-angular-ui-kit/ripple';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { CategoryService } from './services/category.service';
+import { SidebarService } from './services/sidebar.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     BsModalService,
     MdbRippleDirective,
     CategoryService,
+    SidebarService,
     provideHttpClient(),
   ],
 };
