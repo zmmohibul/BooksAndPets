@@ -10,6 +10,7 @@ import { CategoryListComponent } from '../../sidebar/category-list/category-list
 import { Category } from '../../../models/category-models/category';
 import { CategoryService } from '../../../services/category.service';
 import { ProductsPageContainerComponent } from '../../product/products-page-container/products-page-container.component';
+import { FilterListComponent } from '../../sidebar/filter-list/filter-list.component';
 
 @Component({
   selector: 'app-book-home',
@@ -18,6 +19,7 @@ import { ProductsPageContainerComponent } from '../../product/products-page-cont
     CommonModule,
     CategoryListComponent,
     ProductsPageContainerComponent,
+    FilterListComponent,
   ],
   templateUrl: './book-home.component.html',
   styleUrls: ['./book-home.component.scss'],

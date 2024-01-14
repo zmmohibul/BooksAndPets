@@ -1,0 +1,32 @@
+.form-check-label {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.link {
+  color: #322626;
+}
+
+.link:hover {
+  color: #9b5a5a;
+  text-decoration: underline;
+}
+
+
+input[type=checkbox]
+{
+  //-moz-transform: scale(0.5); /* FF */
+  //-webkit-transform: scale(0.5); /* Safari and Chrome */
+  transform: scale(0.65);
+  //padding: 10px;
+  margin: 5px 0;
+}
+
+.list-group {
+  border-radius: 0;
+  width: 93%;
+  max-height: 250px;
+  margin: 10px 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
