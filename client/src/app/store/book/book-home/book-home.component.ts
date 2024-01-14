@@ -11,6 +11,7 @@ import { Category } from '../../../models/category-models/category';
 import { CategoryService } from '../../../services/category.service';
 import { ProductsPageContainerComponent } from '../../product/products-page-container/products-page-container.component';
 import { FilterListComponent } from '../../sidebar/filter-list/filter-list.component';
+import { BookCardComponent } from '../book-card/book-card.component';
 
 @Component({
   selector: 'app-book-home',
@@ -20,6 +21,7 @@ import { FilterListComponent } from '../../sidebar/filter-list/filter-list.compo
     CategoryListComponent,
     ProductsPageContainerComponent,
     FilterListComponent,
+    BookCardComponent,
   ],
   templateUrl: './book-home.component.html',
   styleUrls: ['./book-home.component.scss'],

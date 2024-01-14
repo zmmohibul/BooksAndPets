@@ -1,29 +1,12 @@
 [
   {
-    "name": "Fahrenheit 451",
-    "description": "description",
-    "departmentId": 1,
-    "categoryIds": [1, 2, 3],
-    "priceList": [
-      {
-        "unitPrice": 800,
-        "measureTypeId": 1,
-        "measureOptionId": 1,
-        "quantityInStock": 27
-      },
-      {
-        "unitPrice": 1400,
-        "measureTypeId": 1,
-        "measureOptionId": 1,
-        "quantityInStock": 9
-      }
-    ],
-    "highlightText": "We stand against the small tide of those who want to make everyone unhappy with conflicting theory and thought.",
-    "publisherId": 1,
-    "languageId": 1,
-    "authorIds": [1],
-    "pageCount": 249,
-    "publicationDate": "1/10/2012",
-    "iSBN": "978-1451673319"
+    "ProductId": 1,
+    "HighlightText": "We stand against the small tide of those who want to make everyone unhappy with conflicting theory and thought.",
+    "PublisherId": 1,
+    "LanguageId": 1,
+    "AuthorIds": [1],
+    "PageCount": 249,
+    "PublicationDate": "2012-01-10T05:50:06.7199222-04:00",
+    "ISBN": "978-1451673319"
   }
 ]

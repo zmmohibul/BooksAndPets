@@ -1,0 +1,14 @@
+[
+  {
+    "Id": 1,
+    "Option": "paperback",
+    "Description": "Paperback book.",
+    "MeasureTypeId": 1
+  },
+  {
+    "Id": 2,
+    "Option": "hardcover",
+    "Description": "Hardcover book.",
+    "MeasureTypeId": 1
+  }
+]

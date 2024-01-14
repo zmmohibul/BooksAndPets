@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "Name": "Fahrenheit 451",
+    "Description": "Nearly seventy years after its original publication, Ray Bradbury’s internationally acclaimed novel Fahrenheit 451 stands as a classic of world literature set in a bleak, dystopian future. Today its message has grown more relevant than ever before.\n\nGuy Montag is a fireman. His job is to destroy the most illegal of commodities, the printed book, along with the houses in which they are hidden. Montag never questions the destruction and ruin his actions produce, returning each day to his bland life and wife, Mildred, who spends all day with her television “family.” But when he meets an eccentric young neighbor, Clarisse, who introduces him to a past where people didn’t live in fear and to a present where one sees the world through the ideas in books instead of the mindless chatter of television, Montag begins to question everything he has ever known.",
+    "DepartmentId": 1,
+    "CategoryIds": [1, 2, 3],
+    "PriceList": [
+      {
+        "UnitPrice": 800,
+        "MeasureTypeId": 1,
+        "MeasureOptionId": 1,
+        "QuantityInStock": 27
+      },
+      {
+        "UnitPrice": 1400,
+        "MeasureTypeId": 1,
+        "MeasureOptionId": 2,
+        "QuantityInStock": 9
+      }
+    ]
+  }
+]

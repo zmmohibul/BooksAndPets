@@ -8,19 +8,26 @@
 
 // MDB SCSS
 @import "mdb-angular-ui-kit/assets/scss/mdb.scss";
+body {
+  color: #0F1111;
+  background-color: #f2f2f2;
+}
 
+h5 {
+  font-size: 18px;
+}
 .link {
-  color: #164894;
   cursor: pointer;
-  //text-decoration: underline;
+  color: #0F1111;
 }
 
 .link:hover {
-  color: #3773cc;
+  color: #c45500;
+  text-decoration: underline;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-track {

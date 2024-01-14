@@ -3,14 +3,7 @@
   font-weight: normal;
 }
 
-.link {
-  color: #322626;
-}
 
-.link:hover {
-  color: #9b5a5a;
-  text-decoration: underline;
-}
 
 
 input[type=checkbox]
@@ -22,11 +15,31 @@ input[type=checkbox]
   margin: 5px 0;
 }
 
+list-group-item {
+
+}
+.list-group-light {
+  //background-color: #9b5a5a;
+}
+
+.box {
+  border: 1px solid #37475A;
+  width: 230px;
+  max-height: 230px;
+  margin: 10px 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .list-group {
+
   border-radius: 0;
   width: 93%;
   max-height: 250px;
   margin: 10px 0;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
 }
