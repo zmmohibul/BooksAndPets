@@ -4,19 +4,22 @@ import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MdbRippleDirective, MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
 import { SidebarService } from '../../services/sidebar.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [CommonModule, MdbDropdownModule, MdbRippleModule],
+  imports: [CommonModule, MdbDropdownModule, MdbRippleModule, RouterLink],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent {
+  sidebarInRoutes = ['/books', '/pets'];
   modalRef?: BsModalRef;
   constructor(
     private modalService: BsModalService,
     private sidebarService: SidebarService,
+    public router: Router,
   ) {}
 
   openModal(template: TemplateRef<void>) {

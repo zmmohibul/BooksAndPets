@@ -1,0 +1,14 @@
+<div class="main d-flex">
+  <div class="sidebar-wrapper" [ngClass]="{ 'hide-sidebar': (this.sidebarService.$hideBar | async) }">
+    <div class="sidebar" >
+      <ng-content select="#sideBar"></ng-content>
+    </div>
+  </div>
+
+  <!--  <div class="vr mx-3"></div>-->
+  <div class="item-list">
+    <div class="">
+      <ng-content select="#itemList"></ng-content>
+    </div>
+  </div>
+</div>

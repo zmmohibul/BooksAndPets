@@ -1,23 +1,18 @@
-<div class="main d-flex">
-  <div class="sidebar-wrapper" [ngClass]="{ 'hide-sidebar': (this.sidebarService.$hideBar | async) }">
-    <div class="sidebar" >
-      <app-category-list
-        [categoryList]="categories()"
-        (categoryClick)="onCategoryClick($event)"
-        (departmentClick)="onDepartmentClick($event)"
-      ></app-category-list>
-      <hr class="my-4">
-      <app-category-list></app-category-list>
-    </div>
-  </div>
-  <!--  <div class="vr mx-3"></div>-->
-  <div class="item-list">
-    <div class="">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores atque autem, beatae dicta doloribus expedita explicabo in incidunt, laboriosam maiores mollitia necessitatibus, placeat porro qui sed ut vel vero?
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam distinctio, dolores ducimus earum maiores, minus mollitia praesentium quisquam recusandae rem sequi similique tempore. Explicabo fugiat mollitia voluptatum. Est, facilis non.
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem consequuntur delectus eaque esse fugit ipsam iusto nesciunt nisi nostrum omnis quasi recusandae, ullam, voluptas. Dolore id sequi sit!
-      {{ getScreenWidth }}
-    </div>
+<app-products-page-container>
+  <div id="sideBar">
+    <app-category-list
+      [categoryList]="categories()"
+      (categoryClick)="onCategoryClick($event)"
+      (departmentClick)="onDepartmentClick($event)"
+    ></app-category-list>
+    <hr class="my-4">
+    <app-category-list></app-category-list>
   </div>
 
-</div>
+  <div id="itemList">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores atque autem, beatae dicta doloribus expedita explicabo in incidunt, laboriosam maiores mollitia necessitatibus, placeat porro qui sed ut vel vero?
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam distinctio, dolores ducimus earum maiores, minus mollitia praesentium quisquam recusandae rem sequi similique tempore. Explicabo fugiat mollitia voluptatum. Est, facilis non.
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem consequuntur delectus eaque esse fugit ipsam iusto nesciunt nisi nostrum omnis quasi recusandae, ullam, voluptas. Dolore id sequi sit!
+    {{ getScreenWidth }}
+  </div>
+</app-products-page-container>

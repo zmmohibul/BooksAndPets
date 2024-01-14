@@ -1,16 +1,16 @@
 <div class="px-3 py-1 nav d-flex justify-content-between align-items-center">
   <div class="left-lg">
-    <a class="navbar-brand h1 my-0 text-white" routerLink="">
-      <i class="fas fa-bars text-white fa-lg me-2" (click)="toggleBar()"></i>
+    <a class="navbar-brand h1 my-0 text-white" >
+      <i *ngIf="sidebarInRoutes.includes(router.url)" class="fas fa-bars text-white fa-lg me-2" (click)="toggleBar()"></i>
 <!--      <i class="fas fa-align-justify text-white me-2" (click)="toggleBar()"></i>-->
-      Books & Pets
+      <span routerLink="/">Books & Pets</span>
     </a>
   </div>
 
   <div class="left-sm">
-    <a class="navbar-brand text-white" routerLink="">
-      <i class="fas fa-bars text-white fa-lg me-2" (click)="toggleBar()"></i>
-      B&P
+    <a class="navbar-brand text-white" >
+      <i *ngIf="sidebarInRoutes.includes(router.url)" class="fas fa-bars text-white fa-lg me-2" (click)="toggleBar()"></i>
+      <span routerLink="/">B&P</span>
     </a>
   </div>
 

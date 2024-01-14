@@ -9,23 +9,23 @@ import { CommonModule } from '@angular/common';
 import { CategoryListComponent } from '../../sidebar/category-list/category-list.component';
 import { Category } from '../../../models/category-models/category';
 import { CategoryService } from '../../../services/category.service';
-import { SidebarService } from '../../../services/sidebar.service';
-import { take } from 'rxjs';
+import { ProductsPageContainerComponent } from '../../product/products-page-container/products-page-container.component';
 
 @Component({
   selector: 'app-book-home',
   standalone: true,
-  imports: [CommonModule, CategoryListComponent],
+  imports: [
+    CommonModule,
+    CategoryListComponent,
+    ProductsPageContainerComponent,
+  ],
   templateUrl: './book-home.component.html',
   styleUrls: ['./book-home.component.scss'],
 })
 export class BookHomeComponent implements OnInit {
   categories: WritableSignal<Category[]> = signal([]);
 
-  constructor(
-    public categoryService: CategoryService,
-    public sidebarService: SidebarService,
-  ) {}
+  constructor(public categoryService: CategoryService) {}
   ngOnInit() {
     this.loadAllCategories(1);
     this.getScreenWidth = window.innerWidth;
