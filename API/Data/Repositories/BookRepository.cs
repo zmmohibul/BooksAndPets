@@ -60,6 +60,10 @@ public class BookRepository : IBookRepository
                 || book.Publisher.Name.Contains(bookQueryParameters.SearchTerm));
         }
         
+        var books = await PaginatedList<BookDto>
+            .CreatePaginatedListAsync(bookQueryable.ProjectTo<BookDto>(_mapper.ConfigurationProvider),
+                bookQueryParameters.PageNumber, bookQueryParameters.PageSize);
+        
         var authors = await bookQueryable
             .Select(book => book.Authors)
             .SelectMany(author => author)
@@ -72,23 +76,20 @@ public class BookRepository : IBookRepository
             .Distinct()
             .ProjectTo<PublisherDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
-        
-        var books = await PaginatedList<BookDto>
-            .CreatePaginatedListAsync(bookQueryable.ProjectTo<BookDto>(_mapper.ConfigurationProvider),
-                bookQueryParameters.PageNumber, bookQueryParameters.PageSize);
 
         return new Result<BookDtoList>(200, new BookDtoList(books, authors, publishers));
     }
 
-    public async Task<Result<BookDto>> GetBookDtoById(int id)
+    public async Task<Result<BookDetailsDto>> GetBookDtoById(int id)
     {
         var book = await _context.Books
-            .ProjectTo<BookDto>(_mapper.ConfigurationProvider)
-            .FirstOrDefaultAsync(book => book.Id == id);
+            .Where(b => b.ProductId == id)
+            .ProjectTo<BookDetailsDto>(_mapper.ConfigurationProvider)
+            .FirstOrDefaultAsync();
         
         return book == null
-            ? new Result<BookDto>(404, $"Book id:{id} not found.")
-            : new Result<BookDto>(200, book);
+            ? new Result<BookDetailsDto>(404, $"Book id:{id} not found.")
+            : new Result<BookDetailsDto>(200, book);
     }
 
     public async Task<Result<BookDto>> CreateBook(CreateBookDto createBookDto)

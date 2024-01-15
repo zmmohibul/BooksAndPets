@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Category } from '../models/category-models/category';
+import { Category } from '../models/product-aggregate/category-models/category';
 import { of, tap } from 'rxjs';
 
 @Injectable({

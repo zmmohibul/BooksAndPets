@@ -34,21 +34,21 @@ public class AuthorRepository : IAuthorRepository
         return new Result<PaginatedList<AuthorDto>>(200, await PaginatedList<AuthorDto>.CreatePaginatedListAsync(query, queryParameter.PageNumber, queryParameter.PageSize));
     }
 
-    public async Task<Result<AuthorDto>> GetAuthorDtoById(int authorId)
+    public async Task<Result<AuthorDetailsDto>> GetAuthorDtoById(int authorId)
     {
         var author = await _context.Authors
             .AsNoTracking()
             .Where(author => author.Id == authorId)
             .Include(author => author.AuthorPicture)
-            .ProjectTo<AuthorDto>(_mapper.ConfigurationProvider)
+            .ProjectTo<AuthorDetailsDto>(_mapper.ConfigurationProvider)
             .FirstOrDefaultAsync();
 
         return author != null
-            ? new Result<AuthorDto>(200, author)
-            : new Result<AuthorDto>(404, "No author with given id found.");
+            ? new Result<AuthorDetailsDto>(200, author)
+            : new Result<AuthorDetailsDto>(404, "No author with given id found.");
     }
 
-    public async Task<Result<AuthorDto>> CreateAuthor(CreateAuthorDto createAuthorDto)
+    public async Task<Result<AuthorDetailsDto>> CreateAuthor(CreateAuthorDto createAuthorDto)
     {
         var author = new Author
         {
@@ -58,8 +58,8 @@ public class AuthorRepository : IAuthorRepository
 
         _context.Authors.Add(author);
         return await _context.SaveChangesAsync() > 0
-            ? new Result<AuthorDto>(200, new AuthorDto(author.Id, author.Name, author.Bio, author.AuthorPicture?.Url))
-            : new Result<AuthorDto>(400, "Failed to create author.");
+            ? new Result<AuthorDetailsDto>(200, new AuthorDetailsDto(author.Id, author.Name, author.Bio, author.AuthorPicture?.Url))
+            : new Result<AuthorDetailsDto>(400, "Failed to create author.");
     }
 
     public async Task<Result<AuthorPictureDto>> CreateAuthorPicture(int authorId, IFormFile pictureFile)
@@ -95,7 +95,7 @@ public class AuthorRepository : IAuthorRepository
             : new Result<AuthorPictureDto>(400, "Failed to create author picture");
     }
 
-    public async Task<Result<AuthorDto>> UpdateAuthor(int authorId, UpdateAuthorDto updateAuthorDto)
+    public async Task<Result<AuthorDetailsDto>> UpdateAuthor(int authorId, UpdateAuthorDto updateAuthorDto)
     {
         var author = await _context.Authors
             .Include(author => author.AuthorPicture)
@@ -103,7 +103,7 @@ public class AuthorRepository : IAuthorRepository
 
         if (author == null)
         {
-            return new Result<AuthorDto>(404, "No author with given id found.");
+            return new Result<AuthorDetailsDto>(404, "No author with given id found.");
         }
 
         if (!string.IsNullOrEmpty(updateAuthorDto.Name))
@@ -118,7 +118,7 @@ public class AuthorRepository : IAuthorRepository
 
         await _context.SaveChangesAsync();
 
-        return new Result<AuthorDto>(200, new AuthorDto(author.Id, author.Name, author.Bio, author.AuthorPicture?.Url));
+        return new Result<AuthorDetailsDto>(200, new AuthorDetailsDto(author.Id, author.Name, author.Bio, author.AuthorPicture?.Url));
     }
 
     public async Task<Result<AuthorPictureDto>> UpdateAuthorPicture(int authorId, IFormFile pictureFile)

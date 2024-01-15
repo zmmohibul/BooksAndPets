@@ -1,21 +1,22 @@
-<div class="card mb-4">
+<div *ngIf="_book()" class="card  mb-4">
   <div class="row g-0">
-    <div class="col-md-3" style="max-height: 400px">
+    <div class="col-md-3 col-sm-6" style="max-height: 400px">
       <img
         [src]="'https://m.media-amazon.com/images/I/71rFBHcbWcL._AC_UY327_FMwebp_QL65_.jpg'"
         alt="..."
         class="card-img">
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9 col-sm-6">
       <div class="card-body">
-        <h4 class="card-title m-0">The Midnight Library: A GMA Book Club Pick (A Novel)</h4>
+        <h4 class="card-title m-o p-0">{{ _book()?.name }}</h4>
         <p class=" mx-2 mb-2">
           <small class="text-muted">- by
-            <span class="me-1">
-              <span class="link">Matt Haig</span>
+            <span *ngFor="let author of _book()?.authors" class="me-1">
+              <span class="link">{{author.name}}</span>
+              <span *ngIf="(_book()?.authors?.length || 0 > 1)" class="me-1">, </span>
             </span>
             <span> | </span>
-            <span class="mx-1">May 9, 2023</span>
+            <span class="mx-1">{{_book()?.publicationDate | date: 'longDate'}}</span>
           </small>
         </p>
 
@@ -36,11 +37,11 @@
           <div class="col-xl-3  mr-3 mb-2">
             <h5 class="mr-4">Paperback</h5>
 
-            <h5 class="mr-4">BDT {{820 | number:'1.0':'en-US'}}</h5>
+            <h5 class="mr-4">BDT {{getPaperbackPrice() | number:'1.0':'en-US'}}</h5>
           </div>
           <div class="col-xl-3 ">
             <h5 class="mr-4">Hardcover</h5>
-            <h5 class="mr-4">BDT {{1460 | number:'1.0':'en-US'}}</h5>
+            <h5 class="mr-4">BDT {{getHardcoverPrice() | number:'1.0':'en-US'}}</h5>
           </div>
         </div>
 
@@ -50,8 +51,8 @@
         </p>
 
 
-        <div class="row mb-4">
-          <div class="col-xl-3 col-lg-12 col-md-12  mr-3 mb-2">
+        <div class="row  mb-4">
+          <div class="col-xl-3 col-lg-3 col-md-4 col-xsm-4 mr-3 mb-2">
             <div class="dropdown" mdbDropdown>
               <button
                 aria-expanded="false"
@@ -77,9 +78,9 @@
               </ul>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-12 col-md-12">
+          <div class="col-xl-4 col-lg-6 col-md-6 col-xsm-6">
             <div>
-              <button class="btn btn-outline-dark text-dark" routerLink="./1"><i
+              <button class="btn btn-outline-dark text-dark" routerLink="./{{_book()?.id}}"><i
                 class="fas fa-book me-2"></i>View Book Details
               </button>
             </div>
@@ -87,7 +88,7 @@
         </div>
 
         <h6 class="m-0">Highlight:</h6>
-        <p class="card-text">"{{"'But you will never live if you are looking for the meaning of life,' he said, wisely."}}"</p>
+        <p class="card-text">{{ _book()?.highlightText }}</p>
 
       </div>
     </div>

@@ -5,12 +5,16 @@ using API.Dtos.ProductDtoAggregate.ProductDtos;
 
 namespace API.Dtos.BookDtoAggregate.BookDtos;
 
-public class BookDto
+public class BookDetailsDto : ProductDto
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public ICollection<PriceDto> PriceList { get; set; }
     public string HighlightText { get; set; }
+    
+    public PublisherDto Publisher { get; set; }
     public ICollection<AuthorDto> Authors { get; set; }
+    
+    public LanguageDto Language { get; set; }
+    
+    public int PageCount { get; set; }
     public DateTime PublicationDate { get; set; }
+    public string ISBN { get; set; }
 }

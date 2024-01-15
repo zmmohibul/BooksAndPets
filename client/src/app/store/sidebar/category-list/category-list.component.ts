@@ -8,8 +8,8 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Category } from '../../../models/category-models/category';
-import { Department } from '../../../models/department-models/department';
+import { Category } from '../../../models/product-aggregate/category-models/category';
+import { Department } from '../../../models/product-aggregate/department-models/department';
 
 @Component({
   selector: 'app-category-list',

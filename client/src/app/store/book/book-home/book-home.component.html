@@ -28,10 +28,12 @@
   </div>
 
   <div id="itemList">
+    <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
 
+    <app-book-card [book]="books[0]"></app-book-card>
+    <app-book-card [book]="books[0]"></app-book-card>
 
-    <app-book-card></app-book-card>
-    <app-book-card></app-book-card>
-    <app-book-card></app-book-card>
+    <hr class="hr my-5">
+
   </div>
 </app-products-page-container>
