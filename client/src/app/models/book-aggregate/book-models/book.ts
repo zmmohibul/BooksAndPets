@@ -8,6 +8,7 @@ import { PriceList } from '../../product-aggregate/price-list-models/priceList';
 export interface Book {
   id: number;
   name: string;
+  mainPictureUrl: string;
   authors: Author[];
   priceList: PriceList[];
   publicationDate: string;

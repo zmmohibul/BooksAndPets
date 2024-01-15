@@ -7,31 +7,17 @@
     ></app-category-list>
     <hr class="my-4">
 
-    <app-filter-list>
-      <header>Authors</header>
-    </app-filter-list>
+    <app-filter-list [filterType]="filterListType.Author" [listItems]="bookData().authors" ></app-filter-list>
     <hr class="my-4">
 
-    <app-filter-list>
-      <header>Authors</header>
-    </app-filter-list>
-    <hr class="my-4">
+    <app-filter-list [filterType]="filterListType.Publisher" [listItems]="bookData().publishers" ></app-filter-list>
 
-    <app-filter-list>
-      <header>Authors</header>
-    </app-filter-list>
-    <hr class="my-4">
 
-    <app-filter-list>
-      <header>Authors</header>
-    </app-filter-list>
   </div>
 
   <div id="itemList">
+    <h4 class="p-2" *ngIf="books.length === 0">No books found.</h4>
     <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
-
-    <app-book-card [book]="books[0]"></app-book-card>
-    <app-book-card [book]="books[0]"></app-book-card>
 
     <hr class="hr my-5">
 

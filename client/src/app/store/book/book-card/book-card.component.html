@@ -2,7 +2,7 @@
   <div class="row g-0">
     <div class="col-md-3 col-sm-6" style="max-height: 400px">
       <img
-        [src]="'https://m.media-amazon.com/images/I/71rFBHcbWcL._AC_UY327_FMwebp_QL65_.jpg'"
+        src="{{ _book()?.mainPictureUrl }}"
         alt="..."
         class="card-img">
     </div>
@@ -34,12 +34,12 @@
         </div>
 
         <div class="row mb-2">
-          <div class="col-xl-3  mr-3 mb-2">
+          <div class="col-md-3 col-lg-3 col-xl-2  mr-3 mb-2">
             <h5 class="mr-4">Paperback</h5>
 
             <h5 class="mr-4">BDT {{getPaperbackPrice() | number:'1.0':'en-US'}}</h5>
           </div>
-          <div class="col-xl-3 ">
+          <div class="col-md-3 col-lg-3 col-xl-2">
             <h5 class="mr-4">Hardcover</h5>
             <h5 class="mr-4">BDT {{getHardcoverPrice() | number:'1.0':'en-US'}}</h5>
           </div>
@@ -57,6 +57,7 @@
               <button
                 aria-expanded="false"
                 class="btn btn-dark dropdown-toggle"
+                style="background-color: #131A22;"
                 id="dropdownMenuButton"
                 mdbDropdownToggle
                 type="button"

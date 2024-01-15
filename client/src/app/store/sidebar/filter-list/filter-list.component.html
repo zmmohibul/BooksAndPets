@@ -1,41 +1,15 @@
 <h5 class="h5 mb-2 fw-bold">
-  <ng-content select="header"></ng-content>
-
+  {{ _filterType() }}
 </h5>
 
 <!--<div class="list-group list-group-light">-->
-<div class=" box">
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox mdbRipple class="form-check-input me-1" type="checkbox" value="" id="checkboxExample1" />
-    <label class="form-check-label fw-normal" for="checkboxExample1">First checkbox</label>
+<div class="box">
+  <li class="list-group-item link d-flex align-items-center py-1" *ngFor="let item of _listItems(); index as i;">
+    <input mdbCheckbox mdbRipple class="form-check-input me-1" type="checkbox" value="" id="{{_filterType()}}checkboxExample{{i}}" />
+    <label class="form-check-label fw-normal" for="{{_filterType()}}checkboxExample{{i}}">{{ item.name }}</label>
   </li>
 
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox class="form-check-input me-1" type="checkbox" value="" id="checkboxExample2" />
-    <label class="form-check-label" for="checkboxExample2">Second checkbox</label>
-  </li>
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox class="form-check-input me-1" type="checkbox" value="" id="checkboxExample3" />
-    <label class="form-check-label" for="checkboxExample3">Third checkbox</label>
-  </li>
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox class="form-check-input me-1" type="checkbox" value="" id="checkboxExample4" />
-    <label class="form-check-label" for="checkboxExample4">Fourth checkbox</label>
-  </li>
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox class="form-check-input me-1" type="checkbox" value="" id="checkboxExample5" />
-    <label class="form-check-label" for="checkboxExample5">Fifth checkbox</label>
-  </li>
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox class="form-check-input me-1" type="checkbox" value="" id="checkboxExample5" />
-    <label class="form-check-label" for="checkboxExample5">Fifth checkbox</label>
-  </li>
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox class="form-check-input me-1" type="checkbox" value="" id="checkboxExample5" />
-    <label class="form-check-label" for="checkboxExample5">Fifth checkbox</label>
-  </li>
-  <li class="list-group-item link d-flex align-items-center py-1">
-    <input mdbCheckbox class="form-check-input me-1" type="checkbox" value="" id="checkboxExample5" />
-    <label class="form-check-label" for="checkboxExample5">Fifth checkbox</label>
+  <li class="list-group-item text-center py-2" *ngIf="_listItems().length == 0" >
+    <label class="form-check-label fw-normal " style="cursor: default;">No data found</label>
   </li>
 </div>

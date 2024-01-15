@@ -15,6 +15,12 @@ import { BookCardComponent } from '../book-card/book-card.component';
 import { BookService } from '../../../services/book.service';
 import { HttpQueryParameter } from '../../../models/utils/HttpQueryParameter';
 import { Book } from '../../../models/book-aggregate/book-models/book';
+import { FilterListTypes } from '../../../models/utils/filterListTypes';
+import { BookData } from '../../../models/book-aggregate/book-models/bookData';
+import { sign } from 'chart.js/helpers';
+import { Author } from '../../../models/book-aggregate/author-models/author';
+import { Publisher } from '../../../models/book-aggregate/publisher-models/publisher';
+import { PagedData } from '../../../models/utils/PagedData';
 
 @Component({
   selector: 'app-book-home',
@@ -30,9 +36,15 @@ import { Book } from '../../../models/book-aggregate/book-models/book';
   styleUrls: ['./book-home.component.scss'],
 })
 export class BookHomeComponent implements OnInit {
+  filterListType = FilterListTypes;
   categories: WritableSignal<Category[]> = signal([]);
   bookQueryParameters = new HttpQueryParameter();
   books: Book[] = [];
+  bookData: WritableSignal<BookData> = signal({
+    data: new PagedData<Book>(),
+    authors: [],
+    publishers: [],
+  });
 
   constructor(
     public categoryService: CategoryService,
@@ -47,6 +59,7 @@ export class BookHomeComponent implements OnInit {
     this.bookService.getAllBooks(this.bookQueryParameters).subscribe({
       next: (data) => {
         this.books = data.data.items;
+        this.bookData = signal(data);
         console.log(this.books);
       },
     });
