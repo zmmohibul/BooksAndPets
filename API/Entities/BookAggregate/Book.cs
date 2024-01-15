@@ -7,9 +7,6 @@ namespace API.Entities.BookAggregate;
 
 public class Book : BaseProduct 
 {
-    // public int ProductId { get; set; }
-    // public Product Product { get; set; }
-    
     public string HighlightText { get; set; }
     
     public int PublisherId { get; set; }

@@ -10,4 +10,5 @@ public class ProductSeed
     public int DepartmentId { get; set; }
     public List<int> CategoryIds { get; set; } = new ();
     public List<Price> PriceList { get; set; } = new ();
+    public List<Picture> Pictures { get; set; } = new ();
 }

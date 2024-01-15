@@ -43,7 +43,8 @@ public class DataContextSeed
                     Description = p.Description,
                     DepartmentId = p.DepartmentId,
                     Categories = new List<Category>(),
-                    PriceList = p.PriceList
+                    PriceList = p.PriceList,
+                    Pictures = p.Pictures
                 };
 
                 foreach (var c in p.CategoryIds)

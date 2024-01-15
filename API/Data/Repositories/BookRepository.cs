@@ -10,6 +10,7 @@ using API.Interfaces.RepositoryInterfaces;
 using API.Utils;
 using API.Entities.BookAggregate;
 using API.Entities.ProductAggregate;
+using API.Interfaces;
 using API.Utils.QueryParameters;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -21,12 +22,14 @@ public class BookRepository : IBookRepository
 {
     private readonly DataContext _context;
     private readonly IProductRepository _productRepository;
+    private readonly IPictureUploadService _pictureUploadService;
     private readonly IMapper _mapper;
 
-    public BookRepository(DataContext context, IProductRepository productRepository, IMapper mapper)
+    public BookRepository(DataContext context, IProductRepository productRepository, IPictureUploadService pictureUploadService, IMapper mapper)
     {
         _context = context;
         _productRepository = productRepository;
+        _pictureUploadService = pictureUploadService;
         _mapper = mapper;
     }
 
@@ -143,10 +146,22 @@ public class BookRepository : IBookRepository
 
     public async Task<Result<bool>> DeleteBook(int id)
     {
-        var book = await _context.Books.FirstOrDefaultAsync(book => book.Id == id);
+        var book = await _context.Books.Include(b => b.Product.Pictures).FirstOrDefaultAsync(book => book.Id == id);
         if (book == null)
         {
             return new Result<bool>(404, "Book not found.");
+        }
+
+        foreach (var pic in book.Product.Pictures)
+        {
+            if (!string.IsNullOrEmpty(pic.PublicId))
+            {
+                var picDeletionResult = await _pictureUploadService.DeletePhotoAsync(pic.PublicId);
+                if (picDeletionResult.Error != null)
+                {
+                    return new Result<bool>(400, "Failed to delete book. Try again later.");
+                }
+            }
         }
 
         _context.Books.Remove(book);

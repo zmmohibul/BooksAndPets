@@ -26,9 +26,11 @@ public class AutoMapperProfiles : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Department));
 
         CreateMap<Book, BookDto>()
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Product.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.MainPictureUrl, opt => opt.MapFrom(src => src.Product.Pictures.FirstOrDefault(pic => pic.IsMain).Url))
             .ForMember(dest => dest.PriceList, opt => opt.MapFrom(src => src.Product.PriceList));
+        
         CreateMap<Book, BookDetailsDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Product.Description))

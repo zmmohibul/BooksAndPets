@@ -9,8 +9,10 @@ public class BookDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
+    public string MainPictureUrl { get; set; }
     public ICollection<PriceDto> PriceList { get; set; }
     public string HighlightText { get; set; }
     public ICollection<AuthorDto> Authors { get; set; }
     public DateTime PublicationDate { get; set; }
+    // "System.Collections.Generic.List`1[System.String]"
 }

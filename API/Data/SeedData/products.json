@@ -18,6 +18,18 @@
         "MeasureOptionId": 2,
         "QuantityInStock": 9
       }
+    ],
+    "Pictures": [
+      {
+        "Url": "https://m.media-amazon.com/images/I/61z7RDG3OIL._AC_UY327_FMwebp_QL65_.jpg",
+        "IsMain": true,
+        "PublicId": ""
+      },
+      {
+        "Url": "https://m.media-amazon.com/images/I/61z7RDG3OIL._SL1500_.jpg",
+        "IsMain": false,
+        "PublicId": ""
+      }
     ]
   }
 ]
