@@ -10,5 +10,10 @@ import { SidebarService } from '../../../services/sidebar.service';
   styleUrls: ['./products-page-container.component.scss'],
 })
 export class ProductsPageContainerComponent {
+  showCart = false;
   constructor(public sidebarService: SidebarService) {}
+
+  toggleCart() {
+    this.showCart = !this.showCart;
+  }
 }

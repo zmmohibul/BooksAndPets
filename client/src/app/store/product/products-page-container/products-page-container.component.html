@@ -1,15 +1,27 @@
-<div class="main d-flex">
-  <div class="sidebar-wrapper" [ngClass]="{ 'hide-sidebar': (this.sidebarService.$hideBar | async) }">
-    <div class="sidebar" >
-      <ng-content select="#sideBar"></ng-content>
-    </div>
+<div class="product-page-body">
+<!--  <div class="sidebar-wrapper" >-->
+
+<!--  </div>-->
+<!--  <div class="">-->
+
+<!--  </div>-->
+  <div class="filter-sidebar" [ngClass]="{ 'hide-sidebar': (this.sidebarService.$hideBar | async) }">
+    <ng-content select="#sideBar"></ng-content>
   </div>
 
-  <div class="item-list">
+  <div class="product-page-list" >
     <div class="">
+      <button class="btn btn-lg btn-dark" (click)="toggleCart()">Cart</button>
+
       <h5 class="fw-bold">Books</h5>
       <hr class="mt-1 mb-2">
       <ng-content select="#itemList"></ng-content>
+    </div>
+  </div>
+
+  <div class="cart-sidebar" [ngClass]="{ 'show-cart': showCart }">
+    <div class="">
+
     </div>
   </div>
 </div>
