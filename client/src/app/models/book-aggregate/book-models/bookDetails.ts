@@ -4,6 +4,7 @@ import { Language } from '../language-models/language';
 import { Department } from '../../product-aggregate/department-models/department';
 import { Category } from '../../product-aggregate/category-models/category';
 import { PriceList } from '../../product-aggregate/price-list-models/priceList';
+import { ProductPicture } from '../../product-aggregate/product-models/productPicture';
 
 export interface BookDetails {
   highlightText: string;
@@ -18,6 +19,6 @@ export interface BookDetails {
   description: string;
   department: Department;
   categories: Category[];
-  pictures: any[];
+  pictures: ProductPicture[];
   priceList: PriceList[];
 }

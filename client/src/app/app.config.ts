@@ -9,6 +9,7 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { CategoryService } from './services/category.service';
 import { SidebarService } from './services/sidebar.service';
 import { BookService } from './services/book.service';
+import { PhotoGalleryModule } from '@twogate/ngx-photo-gallery';
 
 export const appConfig: ApplicationConfig = {
   providers: [

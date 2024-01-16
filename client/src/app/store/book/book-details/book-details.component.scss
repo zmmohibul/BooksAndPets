@@ -1,0 +1,57 @@
+.ngx-gallery {
+
+  display: inline-block;
+  margin-bottom: 20px;
+
+}
+
+.box {
+  position: relative;
+  //margin-top: 20px;
+}
+
+.container-fluid {
+  padding-top: 25px;
+}
+
+.card {
+  max-width: 15rem;
+  border-radius: 0;
+  background-color: #ffffff;
+}
+
+@media only screen and (max-width: 990px) {
+  .ngx-gallery {
+    display: block;
+    margin: 20px auto;
+  }
+
+
+
+}
+
+@media only screen and (max-width: 880px) {
+  .header-data {
+    text-align: center;
+  }
+
+  .price-card-1{
+    margin-left: auto;
+  }
+
+  .price-card-2{
+    margin-right: auto;
+  }
+
+
+}
+
+@media only screen and (max-width: 520px) {
+  .card {
+    font-size: 0.8rem;
+    width: 13rem;
+  }
+
+
+}
+

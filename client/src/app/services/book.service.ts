@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { BookData } from '../models/book-aggregate/book-models/bookData';
 import { HttpQueryParameter } from '../models/utils/HttpQueryParameter';
 import { of, tap } from 'rxjs';
+import { BookDetails } from '../models/book-aggregate/book-models/bookDetails';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ import { of, tap } from 'rxjs';
 export class BookService {
   baseUrl = environment.apiUrl;
   bookCache = new Map<string, BookData>();
+  bookDetailsCache = new Map<number, BookDetails>();
 
   constructor(private http: HttpClient) {}
 
@@ -26,6 +28,19 @@ export class BookService {
     return this.http.get<BookData>(`${this.baseUrl}/books`, { params }).pipe(
       tap((response) => {
         this.bookCache.set(queryString, response);
+      }),
+    );
+  }
+
+  getBookById(id: number) {
+    let book = this.bookDetailsCache.get(id);
+    if (book) {
+      return of(book);
+    }
+
+    return this.http.get<BookDetails>(`${this.baseUrl}/books/${id}`).pipe(
+      tap((response) => {
+        this.bookDetailsCache.set(id, response);
       }),
     );
   }

@@ -1,0 +1,159 @@
+<!--<div [ngClass]="{'loader': loading}"></div>-->
+<div class="box">
+  <div *ngIf="book" class="container-fluid ">
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 mb-4">
+        <div>
+          <ngx-gallery [images]="galleryImages" [options]="galleryOptions" class="ngx-gallery"></ngx-gallery>
+        </div>
+      </div>
+
+      <div class="ps-2 col-lg-8 col-md-12 col-sm-12">
+        <div class="header-data">
+          <section class="mb-3">
+            <h1 class="h2">{{book.name}}</h1>
+            <p class=" mx-3 mb-2 text-muted">
+          <span class="mx-1">
+            <span>- by </span>
+            <span *ngFor="let author of book.authors" class="link">{{author.name}}</span>
+            <span> (Author) |</span>
+            <span class="mx-1">Published: {{book.publicationDate | date: 'longDate'}}</span>
+          </span>
+            </p>
+          </section>
+
+          <section class="mb-5">
+            <div class="mb-3 mx-1">
+              <span class="me-2">3.67</span>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+
+              <span class="mx-1 ms-2">-</span>
+              <span class="mx-1"><span class="link me-1">139,489</span> <span class="text-muted">(Ratings)</span></span>
+            </div>
+          </section>
+
+          <section class="mb-3 price-card-head">
+            <div class="row ms-1">
+              <div class="col-md-4 me-3 card price-card-1  mb-3" style="max-width: 15rem;">
+                <div class="card-header"><h6 class="fw-normal">Paperback Price</h6></div>
+                <div class="card-body text-dark">
+                  <h5 class="card-title">BDT {{getPaperbackPrice() | number:'1.0':'en-US'}}</h5>
+                  <p class="card-text">Quantity in Stock: {{11}}</p>
+                </div>
+              </div>
+
+              <div class="col-md-4 card price-card-2  mb-3" style="max-width: 15rem;">
+                <div class="card-header"><h6 class="fw-normal">Hardcover Price</h6></div>
+                <div class="card-body text-dark">
+                  <h5 class="card-title">BDT {{getHardcoverPrice() | number:'1.0':'en-US'}}</h5>
+                  <p class="card-text">Quantity in Stock: {{7}}</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <section class="ms-2 mb-5">
+            <div class="dropdown" mdbDropdown>
+              <button
+                aria-expanded="false"
+                class="btn btn-dark dropdown-toggle btn-lg"
+                id="dropdownMenuButton"
+                mdbDropdownToggle
+                type="button"
+              >
+                <i class="fas fa-shopping-cart me-2"></i>
+                Add to Cart
+              </button>
+              <ul aria-labelledby="dropdownMenuButton" class="dropdown-menu" mdbDropdownMenu>
+                <li>
+                  <button class="dropdown-item" type="button">Paperback</button>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button">Hardcover</button>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+
+        <section>
+          <h6>Book Description:</h6>
+          <p [innerText]="book.description"></p>
+          <p [innerText]="book.description"></p>
+
+        </section>
+
+        <section>
+          <hr class="hr">
+
+          <div class="mx-4 row mb-0 det">
+
+            <div class="col-sm-6 " style="max-width: 10rem;">
+              <p class="mb-0 text-center">
+                Print Length
+              </p>
+              <div class="text-center">
+                <i class="far fa-file fa-2x"></i>
+              </div>
+              <p class="fw-bold text-center">{{book.pageCount}} Pages</p>
+            </div>
+
+            <div class="col-sm-6" style="max-width: 10rem;">
+              <p class="mb-0 text-center">
+                Language
+              </p>
+              <div class="text-center">
+                <i class="fas fa-globe fa-2x"></i>
+              </div>
+              <p class="fw-bold text-center">{{book.language.language}}</p>
+            </div>
+
+            <div class="col-sm-6" style="max-width: 10rem;">
+              <p class="mb-0 text-center">
+                Publication Date
+              </p>
+              <div class="text-center">
+                <i class="far fa-calendar-alt fa-2x"></i>
+              </div>
+              <p class="fw-bold text-center">{{book.publicationDate | date: 'longDate'}}</p>
+            </div>
+
+            <div class="col-sm-6" style="max-width: 10rem;">
+              <p class="mb-0 text-center">
+                Publisher
+              </p>
+              <div class="text-center">
+                <i class="far fa-building fa-2x"></i>
+              </div>
+              <p class="fw-bold text-center">{{book.publisher.name}}</p>
+            </div>
+
+
+            <div class="col-sm-6" style="max-width: 10rem;">
+              <p class="mb-0 text-center">
+                ISBN-13
+              </p>
+              <div class="text-center">
+                <i class="fas fa-barcode fa-2x"></i>
+              </div>
+              <p class="fw-bold text-center">{{book.isbn}}
+              </p>
+            </div>
+          </div>
+          <hr class="hr">
+
+        </section>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
