@@ -10,6 +10,7 @@ import { CategoryService } from './services/category.service';
 import { SidebarService } from './services/sidebar.service';
 import { BookService } from './services/book.service';
 import { PhotoGalleryModule } from '@twogate/ngx-photo-gallery';
+import { CartService } from './services/cart.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     CategoryService,
     SidebarService,
     BookService,
+    CartService,
     provideHttpClient(),
   ],
 };

@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MdbRippleDirective, MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
 import { SidebarService } from '../../services/sidebar.service';
 import { Router, RouterLink } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,6 +20,7 @@ export class NavBarComponent {
   constructor(
     private modalService: BsModalService,
     private sidebarService: SidebarService,
+    public cartService: CartService,
     public router: Router,
   ) {}
 

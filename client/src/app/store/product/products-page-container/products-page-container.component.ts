@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarService } from '../../../services/sidebar.service';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-products-page-container',
@@ -11,7 +12,10 @@ import { SidebarService } from '../../../services/sidebar.service';
 })
 export class ProductsPageContainerComponent {
   showCart = false;
-  constructor(public sidebarService: SidebarService) {}
+  constructor(
+    public sidebarService: SidebarService,
+    public cartService: CartService,
+  ) {}
 
   toggleCart() {
     this.showCart = !this.showCart;

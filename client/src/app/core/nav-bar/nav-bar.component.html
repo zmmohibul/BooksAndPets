@@ -63,10 +63,10 @@
       </ng-container>
 
       <li class="nav-item me-lg-0">
-        <a class="nav-link" routerLink="cart">
+        <a (click)="cartService.toggleShowCart()" class="nav-link link">
 <!--           <span class="badge badge-pill bg-danger">1</span>-->
           <span><i class="fas fa-shopping-cart fa-lg text-white"></i></span>
-          <span class="badge rounded-pill badge-notification bg-danger me-3">{{ 7 }}</span>
+          <span *ngIf="cartService.cartItems().length" class="badge rounded-pill badge-notification bg-danger  me-3">{{ cartService.cartItems().length }}</span>
         </a>
       </li>
     </ul>
@@ -74,7 +74,17 @@
 
 
   <div class="right-sm">
-    <button type="button" class="btn btn-sm btn-outline-secondary text-white" (click)="openModal(template)"><i class="fas fa-user"></i></button>
+
+    <ul class="navbar-nav flex-row justify-content-between align-items-center" >
+      <li class="nav-item btn btn-sm btn-outline-secondary text-white" (click)="openModal(template)"><i class="fas fa-user"></i></li>
+      <li class="nav-item ms-3">
+        <a (click)="cartService.toggleShowCart()" class="nav-link link">
+          <!--           <span class="badge badge-pill bg-danger">1</span>-->
+          <span><i class="fas fa-shopping-cart fa-lg text-white"></i></span>
+          <span class="badge rounded-pill badge-notification bg-danger me-3">{{ 7 }}</span>
+        </a>
+      </li>
+    </ul>
 
     <ng-template #template>
       <div class="modal-header">

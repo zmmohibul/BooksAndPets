@@ -1,6 +1,15 @@
 <app-nav-bar></app-nav-bar>
 <div class="main-body">
+  <div class="cart-sidebar" [ngClass]="{ 'show-cart': cartService.showCart() }">
+    <app-cart></app-cart>
+  </div>
   <router-outlet></router-outlet>
+
   <app-footer></app-footer>
 </div>
+
+
+
+
+
 
