@@ -15,7 +15,7 @@ export class CartService {
     1,
     27,
   );
-  cartItems: WritableSignal<CartItem[]> = signal([this.itm, this.itm]);
+  cartItems: WritableSignal<CartItem[]> = signal([]);
   constructor() {
     // this.cartItems().push(this.itm)
   }
@@ -31,7 +31,10 @@ export class CartService {
     }
 
     for (let item of this.cartItems()) {
-      if (item.productId === cartItem.productId) {
+      if (
+        item.productId === cartItem.productId &&
+        item.measureOption === cartItem.measureOption
+      ) {
         item.quantity += cartItem.quantity;
         this.cartItems.set(this.cartItems());
         return;
@@ -42,9 +45,12 @@ export class CartService {
     this.cartItems.set(this.cartItems());
   }
 
-  incrementItemQuantity(productId: number) {
+  incrementItemQuantity(cartItem: CartItem) {
     for (let item of this.cartItems()) {
-      if (item.productId === productId) {
+      if (
+        item.productId === cartItem.productId &&
+        item.measureOption === cartItem.measureOption
+      ) {
         if (item.quantityInStock === item.quantity) {
           console.log('Out of stock!');
           return;
@@ -56,9 +62,12 @@ export class CartService {
       }
     }
   }
-  decrementItemQuantity(productId: number) {
+  decrementItemQuantity(cartItem: CartItem) {
     for (let item of this.cartItems()) {
-      if (item.productId === productId) {
+      if (
+        item.productId === cartItem.productId &&
+        item.measureOption === cartItem.measureOption
+      ) {
         if (item.quantity === 1) {
           return;
         } else {
@@ -70,10 +79,16 @@ export class CartService {
     }
   }
 
-  removeItemFromCart(productId: number) {
-    const result = this.cartItems().filter(
-      (item) => item.productId !== productId,
-    );
-    this.cartItems.set(result);
+  removeItemFromCart(cartItem: CartItem) {
+    console.log(this.cartItems());
+    const res = [];
+    for (let itm of this.cartItems()) {
+      if (itm.productId !== cartItem.productId) {
+        res.push(itm);
+      } else if (itm.measureOption !== cartItem.measureOption) {
+        res.push(itm);
+      }
+    }
+    this.cartItems.set(res);
   }
 }

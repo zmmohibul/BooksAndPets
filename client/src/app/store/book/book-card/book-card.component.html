@@ -67,12 +67,12 @@
               </button>
               <ul aria-labelledby="dropdownMenuButton" class="dropdown-menu" mdbDropdownMenu>
                 <li>
-                  <button  class="dropdown-item" type="button">
+                  <button (click)="addItemToCart(priceOption.Paperback)" class="dropdown-item" type="button">
                     Paperback
                   </button>
                 </li>
                 <li>
-                  <button class="dropdown-item" type="button">
+                  <button (click)="addItemToCart(priceOption.Hardcover)" class="dropdown-item" type="button">
                     Hardcover
                   </button>
                 </li>

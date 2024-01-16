@@ -11,14 +11,4 @@ import { CartService } from '../../services/cart.service';
 })
 export class CartComponent {
   constructor(public cartService: CartService) {}
-
-  incrementItemQuantity(productId: number) {
-    this.cartService.incrementItemQuantity(productId);
-  }
-  decrementItemQuantity(productId: number) {
-    this.cartService.decrementItemQuantity(productId);
-  }
-  removeItem(productId: number) {
-    this.cartService.removeItemFromCart(productId);
-  }
 }

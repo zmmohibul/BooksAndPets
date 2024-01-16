@@ -1,3 +1,6 @@
+<div *ngIf="!cartService.cartItems().length" class="d-flex justify-content-center align-items-center h-100" >
+  <h5>Your Cart is Empty!</h5>
+</div>
 <div *ngFor="let item of cartService.cartItems()">
   <div class="card " >
     <div class="card-body p-1">
@@ -21,19 +24,19 @@
       class="card-footer border-0 bg-light p-0 d-flex justify-content-around"
     >
       <a
-        (click)="incrementItemQuantity(item.productId)"
+        (click)="cartService.incrementItemQuantity(item)"
         class="btn btn-link m-0 text-reset"
         role="button"
         data-ripple-color="primary"
       ><i class="fas fa-angle-up"></i></a>
       <a
-        (click)="decrementItemQuantity(item.productId)"
+        (click)="cartService.decrementItemQuantity(item)"
         class="btn btn-link m-0 text-reset"
         role="button"
         data-ripple-color="primary"
       ><i class="fas fa-angle-down"></i></a>
       <a
-        (click)="removeItem(item.productId)"
+        (click)="cartService.removeItemFromCart(item)"
         class="btn btn-link cart-delete  m-0 text-reset"
         role="button"
         data-ripple-color="danger"

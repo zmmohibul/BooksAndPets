@@ -12,6 +12,9 @@ import {
   NgxGalleryModule,
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
+import { CartItem } from '../../../models/utils/cartItem';
+import { CartService } from '../../../services/cart.service';
+import { PriceOption } from '../../../models/utils/priceOption';
 
 @Component({
   selector: 'app-book-details',
@@ -25,10 +28,12 @@ export class BookDetailsComponent implements OnInit {
 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
+  priceOption = PriceOption;
 
   constructor(
     public bookService: BookService,
     private route: ActivatedRoute,
+    private cartService: CartService,
   ) {}
 
   ngOnInit(): void {
@@ -111,5 +116,31 @@ export class BookDetailsComponent implements OnInit {
       }
     }
     return;
+  }
+
+  addItemToCart(measureOption: string) {
+    if (!this.book) return;
+
+    const price = this.book.priceList.find(
+      (p) => p.measureOption === measureOption,
+    );
+    if (!price) return;
+
+    let pic: string | undefined = this.book.pictures.find((p) => p.isMain)?.url;
+    if (!pic) {
+      pic = '';
+    }
+
+    const item = new CartItem(
+      this.book.id,
+      this.book.name,
+      pic,
+      price.measureOption,
+      price.unitPrice,
+      1,
+      price.quantityInStock,
+    );
+
+    this.cartService.addItemToCart(item);
   }
 }
