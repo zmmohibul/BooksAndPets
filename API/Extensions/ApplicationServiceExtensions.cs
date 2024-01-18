@@ -33,6 +33,7 @@ public static class ApplicationServiceExtensions
         
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddScoped<IPictureUploadService, PictureUploadService>();
+        services.AddScoped<ITokenService, TokenService>();
         
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         

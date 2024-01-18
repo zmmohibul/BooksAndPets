@@ -8,6 +8,10 @@
 
 // MDB SCSS
 @import "mdb-angular-ui-kit/assets/scss/mdb.scss";
+
+@import 'ngx-toastr/toastr';
+
+@import 'ngx-toastr/toastr-bs5-alert';
 body {
   color: #0F1111;
   background-color: #f2f2f2;

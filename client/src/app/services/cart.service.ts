@@ -1,5 +1,6 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { CartItem } from '../models/utils/cartItem';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class CartService {
     27,
   );
   cartItems: WritableSignal<CartItem[]> = signal([]);
-  constructor() {
+  constructor(private toastr: ToastrService) {
     // this.cartItems().push(this.itm)
   }
 
@@ -25,24 +26,42 @@ export class CartService {
   }
 
   addItemToCart(cartItem: CartItem) {
-    if (cartItem.quantity === cartItem.quantityInStock) {
-      console.log('Out of stock!');
-      return;
-    }
-
     for (let item of this.cartItems()) {
       if (
         item.productId === cartItem.productId &&
         item.measureOption === cartItem.measureOption
       ) {
+        if (cartItem.quantityInStock === item.quantity) {
+          this.toastr.info(
+            'Your desired quantity is unavailable at the moment.',
+            'Out of stock',
+          );
+          return;
+        }
+
         item.quantity += cartItem.quantity;
         this.cartItems.set(this.cartItems());
         return;
       }
     }
 
+    if (cartItem.quantityInStock === 0) {
+      this.toastr.info('The product is currently unavailable.', 'Out of stock');
+      return;
+    }
     this.cartItems().push(cartItem);
     this.cartItems.set(this.cartItems());
+
+    if (this.cartItems().length === 1) {
+      this.toggleShowCart();
+    }
+
+    if (!this.showCart()) {
+      this.toastr.success(
+        `${cartItem.name}(${cartItem.measureOption})`,
+        'Added to cart',
+      );
+    }
   }
 
   incrementItemQuantity(cartItem: CartItem) {
@@ -51,14 +70,23 @@ export class CartService {
         item.productId === cartItem.productId &&
         item.measureOption === cartItem.measureOption
       ) {
-        if (item.quantityInStock === item.quantity) {
-          console.log('Out of stock!');
-          return;
-        } else {
-          item.quantity++;
-          this.cartItems.set(this.cartItems());
+        if (cartItem.quantityInStock === item.quantity) {
+          this.toastr.info(
+            'Your desired quantity is unavailable at the moment.',
+            'Out of stock',
+          );
           return;
         }
+
+        item.quantity++;
+        this.cartItems.set(this.cartItems());
+        if (!this.showCart()) {
+          this.toastr.success(
+            `${cartItem.name}(${cartItem.measureOption})`,
+            'Added to cart',
+          );
+        }
+        return;
       }
     }
   }
@@ -88,6 +116,13 @@ export class CartService {
       } else if (itm.measureOption !== cartItem.measureOption) {
         res.push(itm);
       }
+    }
+
+    if (res.length !== this.cartItems().length) {
+      this.toastr.error(
+        `${cartItem.name}(${cartItem.measureOption})`,
+        'Removed from Cart',
+      );
     }
     this.cartItems.set(res);
   }
