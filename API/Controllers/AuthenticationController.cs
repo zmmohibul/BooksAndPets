@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using API.Data;
 using API.Dtos.Identity;
 using API.Entities.Identity;
 using API.Interfaces;
@@ -15,12 +16,14 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class AuthenticationController : BaseApiController
 {
+    private readonly DataContext _context;
     private readonly UserManager<User> _userManager;
     private readonly ITokenService _tokenService;
     private readonly IMapper _mapper;
 
-    public AuthenticationController(UserManager<User> userManager, ITokenService tokenService, IMapper mapper)
+    public AuthenticationController(DataContext context, UserManager<User> userManager, ITokenService tokenService, IMapper mapper)
     {
+        _context = context;
         _userManager = userManager;
         _tokenService = tokenService;
         _mapper = mapper;
@@ -102,10 +105,25 @@ public class AuthenticationController : BaseApiController
         
         return Ok(userDto);
     }
+
+    [Authorize(Roles = "User")]
+    [HttpPost("address")]
+    public async Task<IActionResult> CreateAddress(CreateAddressDto createAddressDto)
+    {
+        var address = _mapper.Map<Address>(createAddressDto);
+        
+        var username = User.FindFirst(ClaimTypes.Name)?.Value;
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName.Equals(username));
+        user.Addresses.Add(address);
+
+        await _context.SaveChangesAsync();
+        return Ok(_mapper.Map<UserDetailsDto>(user));
+    }
     
     [Authorize]
     [HttpGet("user-detail")]
     public async Task<IActionResult> GetCurrentUser()
+    
     {
         var username = User.FindFirst(ClaimTypes.Name)?.Value;
         

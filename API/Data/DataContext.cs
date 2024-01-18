@@ -2,6 +2,7 @@ using API.Entities;
 using API.Entities.BaseEntities;
 using API.Entities.BookAggregate;
 using API.Entities.Identity;
+using API.Entities.OrderAggregate;
 using API.Entities.ProductAggregate;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,9 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<Language> Languages { get; set; }
     
     public DbSet<Picture> ProductPictures { get; set; }
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -3,11 +3,13 @@ using API.Dtos.BookDtoAggregate.BookDtos;
 using API.Dtos.BookDtoAggregate.LanguageDtos;
 using API.Dtos.BookDtoAggregate.PublisherDtos;
 using API.Dtos.Identity;
+using API.Dtos.OrderDtoAggregate;
 using API.Dtos.ProductDtoAggregate.CategoryDtos;
 using API.Dtos.ProductDtoAggregate.DepartmentDtos;
 using API.Dtos.ProductDtoAggregate.ProductDtos;
 using API.Entities.BookAggregate;
 using API.Entities.Identity;
+using API.Entities.OrderAggregate;
 using API.Entities.ProductAggregate;
 using AutoMapper;
 
@@ -19,6 +21,7 @@ public class AutoMapperProfiles : Profile
     {
         CreateMap<User, UserDetailsDto>();
         CreateMap<Address, AddressDto>();
+        CreateMap<CreateAddressDto, Address>();
         
         CreateMap<Category, CategoryDetailsDto>();
         
@@ -66,5 +69,11 @@ public class AutoMapperProfiles : Profile
         CreateMap<UpdateLanguageDto, Language>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Language));
 
+
+        CreateMap<OrderItem, OrderItemDto>()
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.PictureUrl,
+                opt => opt.MapFrom(src => src.Product.Pictures.FirstOrDefault(pic => pic.IsMain).Url));
+        CreateMap<Order, OrderDto>();
     }
 }

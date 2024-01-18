@@ -31,6 +31,8 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IPublisherRepository, PublisherRepository>();
         services.AddScoped<ILanguageRepository, LanguageRepository>();
         
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddScoped<IPictureUploadService, PictureUploadService>();
         services.AddScoped<ITokenService, TokenService>();
