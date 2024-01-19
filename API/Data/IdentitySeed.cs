@@ -30,17 +30,24 @@ public class IdentitySeed
             new User
             {
                 UserName = "mohib",
-                FirstName = "Mohibul",
-                LastName = "Islam",
-                PhoneNumber = "01711223344",
                 Addresses = new List<Address>
                 {
                     new Address
                     {
+                        Name = "Mohibul Islam",
                         Street = "852, East Shewrapara",
                         Area = "Kafrul",
                         City = "Dhaka",
-                        ZipCode = "1216",
+                        PhoneNumber = "01711021840",
+                        IsMain = true
+                    },
+                    new Address
+                    {
+                        Name = "Mohib",
+                        Street = "1023, Ibrahimpur",
+                        Area = "Kafrul",
+                        City = "Dhaka",
+                        PhoneNumber = "01711223344",
                         IsMain = true
                     }
                 }
@@ -49,17 +56,15 @@ public class IdentitySeed
             new User
             {
                 UserName = "hamid",
-                FirstName = "Hamidul",
-                LastName = "Islam",
-                PhoneNumber = "01711223344",
                 Addresses = new List<Address>
                 {
                     new Address
                     {
+                        Name = "Hamid",
                         Street = "492, West Shewrapara",
                         Area = "Kafrul",
                         City = "Dhaka",
-                        ZipCode = "1216",
+                        PhoneNumber = "01711223344",
                         IsMain = true
                     }
                 }

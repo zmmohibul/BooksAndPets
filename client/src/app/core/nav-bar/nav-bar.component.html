@@ -63,7 +63,7 @@
       </ng-container>
 
       <ng-container *ngIf="authenticationService.userDetails()">
-        <div class="dropdown me-3 btn-user-lg" mdbDropdown>
+        <div class="dropdown me-4 btn-user-lg" mdbDropdown>
           <button
             aria-expanded="false"
             class="btn btn-outline-secondary text-white dropdown-toggle"
@@ -71,7 +71,7 @@
             mdbDropdownToggle
             type="button"
           >
-            <i class="fas fa-user me-2"></i> {{ authenticationService.userDetails()?.firstName }}
+            <i class="fas fa-user fa-lg px-2"></i>
           </button>
 
           <ul

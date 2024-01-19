@@ -1,0 +1,75 @@
+<div class="checkout-body ">
+  <div class="row">
+    <div class="col-4">
+      <h4 class="text-center">Address</h4>
+      <div class="" *ngFor="let address of authenticationService.userDetails()?.addresses">
+        <div  class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <span>{{ address.name }}</span>
+<!--              &#160;-->
+<!--              <span>{{ authenticationService.userDetails()?.lastName }}</span>-->
+            </h5>
+            <p class="card-text mb-1">{{ address.street }}</p>
+            <p class="card-text mb-1">{{ address.area }}, {{ address.city }}</p>
+            <p class="card-text">Phone: {{ address.phoneNumber }}</p>
+          </div>
+        </div>
+        <hr >
+      </div>
+
+
+
+      <div *ngIf="showAddressForm()" class="mt-5">
+        <div class="text-center mb-3">
+          <h4 class="">Create New Address</h4>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="text-center" style="width: 25rem">
+            <form (submit)="onFormSubmit($event)">
+              <div class="mb">
+                <app-input  inputType="text" [formControl]="$any(addressForm.controls['name'])"
+                            label="Name"></app-input>
+              </div>
+              <div class="mb">
+                <app-input  inputType="text" [formControl]="$any(addressForm.controls['street'])"
+                           label="Street Address"></app-input>
+              </div>
+              <div class="mb">
+                <app-input  inputType="text" [formControl]="$any(addressForm.controls['area'])"
+                            label="Area"></app-input>
+              </div>
+              <div class="mb">
+                <app-input  inputType="text" [formControl]="$any(addressForm.controls['city'])"
+                            label="City"></app-input>
+              </div>
+              <div class="mb">
+                <app-input  inputType="text" [formControl]="$any(addressForm.controls['phoneNumber'])"
+                            label="Phone Number" name="phoneNumber"></app-input>
+              </div>
+
+
+
+
+              <button type="submit"  class="btn btn-dark btn-block my-4 mb-5">
+                Submit
+              </button>
+            </form>
+            <!--      <div *ngIf="loading" class="loader"></div>-->
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div *ngIf="showNewAddress()" class="mt-4">
+        <button (click)="onNewAddressClick()" class="btn btn-dark">New Address</button>
+      </div>
+    </div>
+    <div class="col-8">
+      <h4 class="text-center">Order Summary</h4>
+    </div>
+  </div>
+</div>

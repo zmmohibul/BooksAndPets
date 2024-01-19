@@ -53,7 +53,7 @@ export class CartService {
     this.cartItems.set(this.cartItems());
 
     if (this.cartItems().length === 1) {
-      this.toggleShowCart();
+      this.showCart.set(true);
     }
 
     if (!this.showCart()) {

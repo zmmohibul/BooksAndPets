@@ -35,9 +35,6 @@ export class RegisterComponent implements OnInit {
   model: RegisterModel = {
     userName: '',
     password: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
   };
   loading = false;
 
@@ -56,30 +53,6 @@ export class RegisterComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(32),
-        ],
-      ],
-      firstName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(32),
-        ],
-      ],
-      lastName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(32),
-        ],
-      ],
-      phoneNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\\d{8})$'),
-          this.invalidPhoneNumber(),
         ],
       ],
       password: [
@@ -116,14 +89,6 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-  invalidPhoneNumber(): ValidatorFn {
-    return (control: AbstractControl) => {
-      return control?.errors?.['pattern']?.requiredPattern
-        ? { invalidPhoneNumber: true }
-        : null;
-    };
-  }
-
   onFormSubmit(event: SubmitEvent) {
     console.log(this.registerForm.controls['password']);
     event.preventDefault();
@@ -132,18 +97,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const formValues = { ...this.registerForm.value };
-    if (formValues.password !== formValues.confirmPassword) {
-      this.registerForm.controls['password'].setErrors({
-        passwordMismatch: true,
-      });
-      this.registerForm.controls['confirmPassword'].setErrors({
-        passwordMismatch: true,
-      });
-      return;
-    }
-
-    this.model = { ...formValues };
+    this.model = { ...this.registerForm.value };
     this.authenticationService.register(this.model).subscribe({
       next: () => {
         this.router.navigateByUrl(this.authenticationService.lastPage);

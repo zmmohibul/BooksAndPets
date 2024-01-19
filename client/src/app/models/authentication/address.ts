@@ -1,8 +1,8 @@
 export interface Address {
-  id: number;
+  name: string;
   street: string;
   city: string;
   area: string;
-  zipCode: string;
+  phoneNumber: string;
   isMain: boolean;
 }

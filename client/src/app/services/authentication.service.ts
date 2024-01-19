@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { LoginModel } from '../models/authentication/loginModel';
 import { map, tap } from 'rxjs';
 import { RegisterModel } from '../models/authentication/registerModel';
+import { Address } from '../models/authentication/address';
+import { add } from 'ngx-bootstrap/chronos';
 
 @Injectable({
   providedIn: 'root',
@@ -78,5 +80,19 @@ export class AuthenticationService {
 
     const userDetails: UserDetails = JSON.parse(userDetailsStr);
     this.userDetails.set(userDetails);
+  }
+
+  createAddress(address: Address) {
+    return this.http
+      .post<Address>(`${this.baseUrl}/authentication/address`, address)
+      .pipe(
+        tap((response) => {
+          const userDetails = this.userDetails();
+          if (userDetails) {
+            userDetails.addresses.push(response);
+            this.userDetails.set(userDetails);
+          }
+        }),
+      );
   }
 }

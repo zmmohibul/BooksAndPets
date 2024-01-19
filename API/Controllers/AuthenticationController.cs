@@ -82,9 +82,6 @@ public class AuthenticationController : BaseApiController
         var user = new User
         {
             UserName = registerDto.UserName,
-            FirstName = registerDto.FirstName,
-            LastName = registerDto.LastName,
-            PhoneNumber = registerDto.PhoneNumber
         };
         
         var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -117,7 +114,7 @@ public class AuthenticationController : BaseApiController
         user.Addresses.Add(address);
 
         await _context.SaveChangesAsync();
-        return Ok(_mapper.Map<UserDetailsDto>(user));
+        return Ok(_mapper.Map<AddressDto>(address));
     }
     
     [Authorize]
