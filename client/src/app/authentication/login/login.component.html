@@ -1,0 +1,37 @@
+<div class="py-5">
+  <div class="text-center mb-4">
+    <h2 class="display-5 fw-normal">Login</h2>
+  </div>
+
+
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="text-center" style="width: 25rem">
+      <form (submit)="onFormSubmit($event)">
+        <div class="mb">
+          <app-input [formControl]="$any(loginForm.controls['userName'])" inputType="text"
+                     label="Username"></app-input>
+        </div>
+
+        <app-input [formControl]="$any(loginForm.controls['password'])" inputType="password"
+                   label="Password"></app-input>
+
+
+        <button  class="btn btn-dark btn-block my-4 mb-5">
+          Submit
+        </button>
+      </form>
+<!--      <div *ngIf="loading" class="loader"></div>-->
+
+
+      <h5 class="fw-normal">Don't have an account?</h5>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        mdbRipple
+        rippleColor="dark"
+      >
+        Register
+      </button>
+    </div>
+  </div>
+</div>

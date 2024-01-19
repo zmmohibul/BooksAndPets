@@ -1,0 +1,61 @@
+<mdb-form-control *ngIf="inputType !== 'textarea'">
+  <input
+    [formControl]="control"
+    class="form-control"
+    id={{label}}
+    mdbInput
+    mdbValidate
+    type={{inputType}}
+  />
+
+  <label class="form-label" for={{label}} mdbLabel>{{label}}</label>
+  <mdb-error *ngIf="requiredError">
+    {{label}} is required
+  </mdb-error>
+
+  <mdb-error *ngIf="minLengthError">
+    {{label}} must be at least {{control.errors?.['minlength'].requiredLength}} characters
+  </mdb-error>
+
+  <mdb-error *ngIf="maxLengthError">
+    {{label}} can be at most {{control.errors?.['maxlength'].requiredLength}} characters
+  </mdb-error>
+
+  <mdb-error *ngIf="minError">
+    {{label}} must be at least {{control.errors?.['min'].min}}
+  </mdb-error>
+
+  <mdb-error *ngIf="passwordMismatchError">
+    Passwords do not match
+  </mdb-error>
+
+  <mdb-error *ngIf="weakPasswordError || (control.errors && control.touched && !requiredError && name === 'password')">
+    Passwords must be minimum eight characters with at least one letter, one number and one special character.
+  </mdb-error>
+
+  <mdb-error *ngIf="invalidPhoneNumberError || (control.errors && control.touched && !requiredError && name === 'phoneNumber')">
+    Invalid Phone Number
+  </mdb-error>
+
+  <mdb-error *ngIf="categoryNameTakenError">
+    Category Name is already in use
+  </mdb-error>
+
+</mdb-form-control>
+
+<mdb-form-control *ngIf="inputType === 'textarea'">
+  <textarea [formControl]="control" class="form-control" id="{{label}}" mdbInput mdbValidate rows="4"
+            style="min-height: 12rem;"></textarea>
+  <label class="form-label" for={{label}} mdbLabel>{{label}}</label>
+  <mdb-error *ngIf="control.errors?.['required'] && (control?.dirty || control?.touched)">
+    {{label}} is required
+  </mdb-error>
+
+  <mdb-error *ngIf="control.errors?.['minlength'] && (control?.dirty || control?.touched)">
+    {{label}} must be at least {{control.errors?.['minlength'].requiredLength}} characters
+  </mdb-error>
+
+  <mdb-error *ngIf="control.errors?.['maxlength'] && (control?.dirty || control?.touched)">
+    {{label}} can be at most {{control.errors?.['maxlength'].requiredLength}} characters
+  </mdb-error>
+</mdb-form-control>

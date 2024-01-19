@@ -1,0 +1,62 @@
+<div class="py-5">
+  <div class="text-center mb-4">
+    <h2 class="display-5 fw-normal">Register</h2>
+  </div>
+
+
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="text-center" style="width: 25rem">
+      <form (submit)="onFormSubmit($event)">
+        <div class="mb">
+          <app-input [formControl]="$any(registerForm.controls['userName'])" inputType="text"
+                     label="Username"></app-input>
+        </div>
+
+        <div class="mb" [ngClass]="{ 'mb-l': registerForm.controls['password'].errors?.['pattern'] }">
+          <app-input [formControl]="$any(registerForm.controls['password'])" inputType="password"
+                     label="Password" name="password"></app-input>
+        </div>
+
+        <div class="mb">
+          <app-input [formControl]="$any(registerForm.controls['confirmPassword'])" inputType="password"
+                     label="Confirm Password"></app-input>
+        </div>
+
+        <div class="mb">
+          <app-input [formControl]="$any(registerForm.controls['firstName'])" inputType="text"
+                     label="First Name"></app-input>
+        </div>
+
+        <div class="mb">
+          <app-input [formControl]="$any(registerForm.controls['lastName'])" inputType="text"
+                     label="Last Name"></app-input>
+        </div>
+
+        <div class="mb">
+          <app-input [formControl]="$any(registerForm.controls['phoneNumber'])" inputType="text"
+                     label="Phone Number" name="phoneNumber"></app-input>
+        </div>
+
+
+
+
+        <button  class="btn btn-dark btn-block my-4 mb-5">
+          Submit
+        </button>
+      </form>
+      <!--      <div *ngIf="loading" class="loader"></div>-->
+
+
+      <h5 class="fw-normal">Already have an account?</h5>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        mdbRipple
+        rippleColor="dark"
+        routerLink="/login"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</div>

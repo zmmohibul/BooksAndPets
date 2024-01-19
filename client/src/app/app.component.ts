@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
@@ -8,6 +8,7 @@ import { NavBarComponent } from './core/nav-bar/nav-bar.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { CartService } from './services/cart.service';
 import { CartComponent } from './store/cart/cart.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -24,10 +25,14 @@ import { CartComponent } from './store/cart/cart.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  user = {};
-  title = 'client';
-  text =
-    'john.doe@gmail.comjohn.doe@gmail.comjohn.doe@gmail.comjohn.doe@gmail.comjohn.doe@gmail.comjohn.doe@gmail.com@gmail.comjohn.doe@gmail.comjohn.doe@gmail.comjohn.doe@gmail.com@gmail.comjohn.doe@gmail.comjohn.doe@gmail.comjohn.doe@gmail.com@gmail.comjohn.doe@gmail.comjohn.doe@gmail.comjohn.doe@gmail.com';
-  constructor(public cartService: CartService) {}
+export class AppComponent implements OnInit {
+  constructor(
+    public cartService: CartService,
+    public authenticationService: AuthenticationService,
+  ) {}
+
+  ngOnInit(): void {
+    this.authenticationService.setUserIfLoggedIn();
+    console.log(this.authenticationService.userDetails());
+  }
 }
