@@ -135,6 +135,8 @@ export class BookDetailsComponent implements OnInit {
       this.book.id,
       this.book.name,
       pic,
+      price.measureTypeId,
+      price.measureOptionId,
       price.measureOption,
       price.unitPrice,
       1,

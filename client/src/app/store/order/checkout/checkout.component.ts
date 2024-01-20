@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { InputComponent } from '../../../core/input/input.component';
@@ -12,11 +12,19 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
+import { OrderSummaryComponent } from '../order-summary/order-summary.component';
+import { ToastrService } from 'ngx-toastr';
+import { OrderService } from '../../../services/order.service';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, InputComponent, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    InputComponent,
+    ReactiveFormsModule,
+    OrderSummaryComponent,
+  ],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
@@ -24,11 +32,15 @@ export class CheckoutComponent implements OnInit {
   showNewAddress = signal(true);
   showAddressForm = signal(false);
   addressForm: FormGroup = new FormGroup({});
+
+  addressId: WritableSignal<number | null> = signal(null);
   constructor(
     public authenticationService: AuthenticationService,
     public cartService: CartService,
+    public orderService: OrderService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -78,5 +90,27 @@ export class CheckoutComponent implements OnInit {
   onNewAddressClick() {
     this.showNewAddress.set(false);
     this.showAddressForm.set(true);
+  }
+
+  onAddressCardClick(id: number) {
+    this.addressId.set(id);
+  }
+
+  onPlaceOrderClick() {
+    if (!this.cartService.cartItems().length) {
+      return;
+    }
+
+    const id = this.addressId();
+    if (id === null) {
+      this.toastr.info('Please select an address');
+      return;
+    }
+
+    this.orderService.createOrder(id)?.subscribe({
+      next: (response) => {
+        this.router.navigateByUrl('/orders');
+      },
+    });
   }
 }

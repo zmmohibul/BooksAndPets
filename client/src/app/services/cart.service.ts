@@ -11,6 +11,8 @@ export class CartService {
     1,
     'Fahrenheit 451',
     'https://m.media-amazon.com/images/I/61z7RDG3OIL._AC_UY327_FMwebp_QL65_.jpg',
+    1,
+    1,
     'paperback',
     800,
     1,

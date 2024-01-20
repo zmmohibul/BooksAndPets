@@ -1,7 +1,9 @@
 export class CartItem {
   productId: number;
-  pictureUrl: string;
   name: string;
+  pictureUrl: string;
+  measureTypeId: number;
+  measureOptionId: number;
   measureOption: string;
   unitPrice: number;
   quantityInStock: number;
@@ -11,14 +13,18 @@ export class CartItem {
     productId: number,
     name: string,
     pictureUrl: string,
+    measureTypeId: number,
+    measureOptionId: number,
     measureOption: string,
     unitPrice: number,
     quantity: number,
     quantityInStock: number,
   ) {
     this.productId = productId;
-    this.pictureUrl = pictureUrl;
     this.name = name;
+    this.pictureUrl = pictureUrl;
+    this.measureTypeId = measureTypeId;
+    this.measureOptionId = measureOptionId;
     this.measureOption = measureOption;
     this.unitPrice = unitPrice;
     this.quantityInStock = quantityInStock;

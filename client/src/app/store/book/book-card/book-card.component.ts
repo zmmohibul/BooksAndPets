@@ -55,6 +55,8 @@ export class BookCardComponent {
       book.id,
       book.name,
       book.mainPictureUrl,
+      price.measureTypeId,
+      price.measureOptionId,
       price.measureOption,
       price.unitPrice,
       1,

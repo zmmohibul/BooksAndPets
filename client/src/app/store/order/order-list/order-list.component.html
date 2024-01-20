@@ -1,0 +1,33 @@
+<div class="checkout-body ">
+
+  <div *ngIf="!orders().length">
+    <h4  class="text-center">You have not placed any orders yet.</h4>
+  </div>
+
+  <div *ngIf="orders().length" class="row">
+    <div class="col-4">
+      <h4 class="text-center">Orders</h4>
+      <div class="" *ngFor="let order of orders()">
+        <div (click)="onOrderClick(order.id)"  class="card" >
+          <div class="card-body">
+            <h5 class="card-title">
+              <span>Order#{{ order.id }}</span>
+            </h5>
+            <p class="card-text mb-1">Order Date: {{ order.orderDate }}</p>
+            <p class="card-text mb-1">Status: {{ order.status }}</p>
+          </div>
+        </div>
+        <hr >
+      </div>
+
+
+    </div>
+
+
+    <div class="col-8" *ngIf="orderItems().length">
+      <app-order-summary [orderSummaryItems]="orderItems()"></app-order-summary>
+    </div>
+
+
+  </div>
+</div>

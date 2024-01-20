@@ -71,7 +71,9 @@ public class AutoMapperProfiles : Profile
 
 
         CreateMap<OrderItem, OrderItemDto>()
-            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.Price))
+            
             .ForMember(dest => dest.PictureUrl,
                 opt => opt.MapFrom(src => src.Product.Pictures.FirstOrDefault(pic => pic.IsMain).Url));
         CreateMap<Order, OrderDto>();

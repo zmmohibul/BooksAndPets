@@ -3,10 +3,10 @@
     <div class="col-4">
       <h4 class="text-center">Address</h4>
       <div class="" *ngFor="let address of authenticationService.userDetails()?.addresses">
-        <div  class="card">
+        <div  class="card" (click)="onAddressCardClick(address.id)">
           <div class="card-body">
             <h5 class="card-title">
-              <span>{{ address.name }}</span>
+              <span>{{ address.name }}</span> <span *ngIf="addressId() === address.id"><i class="ms-2 fas fa-check"></i></span>
 <!--              &#160;-->
 <!--              <span>{{ authenticationService.userDetails()?.lastName }}</span>-->
             </h5>
@@ -68,8 +68,15 @@
         <button (click)="onNewAddressClick()" class="btn btn-dark">New Address</button>
       </div>
     </div>
-    <div class="col-8">
-      <h4 class="text-center">Order Summary</h4>
+
+
+    <div *ngIf="cartService.cartItems().length" class="col-8">
+      <app-order-summary [orderSummaryItems]="cartService.cartItems()"></app-order-summary>
+      <div class="d-flex justify-content-end mx-5">
+        <button (click)="onPlaceOrderClick()" class="btn btn-dark px-5">Place Order</button>
+      </div>
     </div>
+
+
   </div>
 </div>
