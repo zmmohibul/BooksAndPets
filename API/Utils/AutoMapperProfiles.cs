@@ -76,6 +76,7 @@ public class AutoMapperProfiles : Profile
             
             .ForMember(dest => dest.PictureUrl,
                 opt => opt.MapFrom(src => src.Product.Pictures.FirstOrDefault(pic => pic.IsMain).Url));
-        CreateMap<Order, OrderDto>();
+        CreateMap<Order, OrderDto>()
+            .ForMember(d => d.Status, opt => opt.MapFrom(s => s.OrderStatus));
     }
 }

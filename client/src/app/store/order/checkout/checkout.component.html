@@ -71,6 +71,8 @@
 
 
     <div *ngIf="cartService.cartItems().length" class="col-8">
+      <h4 class="text-center">Order Summary</h4>
+
       <app-order-summary [orderSummaryItems]="cartService.cartItems()"></app-order-summary>
       <div class="d-flex justify-content-end mx-5">
         <button (click)="onPlaceOrderClick()" class="btn btn-dark px-5">Place Order</button>

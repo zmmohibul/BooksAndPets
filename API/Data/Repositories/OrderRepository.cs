@@ -15,12 +15,14 @@ public class OrderRepository : IOrderRepository
 {
     private readonly DataContext _context;
     private readonly UserManager<User> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IMapper _mapper;
 
-    public OrderRepository(DataContext context, UserManager<User> userManager, IMapper mapper)
+    public OrderRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
     {
         _context = context;
         _userManager = userManager;
+        _roleManager = roleManager;
         _mapper = mapper;
     }
 
@@ -65,6 +67,7 @@ public class OrderRepository : IOrderRepository
         {
             var product = await _context.Products
                 .Include(p => p.PriceList)
+                .Include(p => p.Pictures)
                 .FirstOrDefaultAsync(p => p.Id == item.ProductId);
             if (product == null)
             {
@@ -135,7 +138,8 @@ public class OrderRepository : IOrderRepository
         {
             User = user,
             Address = address,
-            OrderItems = orderItems
+            OrderItems = orderItems,
+            OrderStatus = OrderStatus.Received
         };
 
         _context.Orders.Add(order);
@@ -143,4 +147,45 @@ public class OrderRepository : IOrderRepository
             ? new Result<OrderDto>(201, _mapper.Map<OrderDto>(order))
             : new Result<OrderDto>(400, "Failed to place order. Try again later.");
     }
+
+    public async Task<Result<bool>> CancelOrder(string username, int orderId)
+    {
+        var user = await _userManager.Users
+            .SingleOrDefaultAsync(user => user.UserName.Equals(username));
+
+        if (user == null)
+        {
+            return new Result<bool>(401, "Please log in to continue.");
+        }
+
+        var order = await _context.Orders
+            .Include(o => o.User)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+        if (order == null)
+        {
+            return new Result<bool>(400, "Order not found");
+        }
+
+        
+        var roles = await _userManager.GetRolesAsync(user);
+        if (user.Id != order.UserId && !roles.Contains(UserRole.Admin.ToString()))
+        {
+            return new Result<bool>(403, "This is not your order!");
+        }
+
+        if (order.OrderStatus == OrderStatus.Shipped)
+        {
+            return new Result<bool>(400, "You cannot cancel an order once it's shipped.");
+        }
+
+        if (order.OrderStatus == OrderStatus.Delivered)
+        {
+            return new Result<bool>(400, "Order is already delivered.");
+        }
+
+        order.OrderStatus = OrderStatus.Cancelled;
+        return await _context.SaveChangesAsync() > 0
+            ? new Result<bool>(200, "Order has been cancelled")
+            : new Result<bool>(400, "Failed to cancel order. Try again later");
+    }   
 }

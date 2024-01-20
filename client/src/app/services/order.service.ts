@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from './cart.service';
@@ -13,20 +13,20 @@ import { PagedData } from '../models/utils/PagedData';
 })
 export class OrderService {
   baseUrl = environment.apiUrl;
-  orderCache: Order[] = [];
+  orderCache: WritableSignal<Order[]> = signal([]);
   constructor(
     private http: HttpClient,
     private cartService: CartService,
   ) {}
 
   getAllOrders() {
-    if (this.orderCache.length) {
-      return of(this.orderCache);
+    if (this.orderCache().length) {
+      return of(this.orderCache());
     }
 
     return this.http.get<PagedData<Order>>(`${this.baseUrl}/orders`).pipe(
       map((response) => {
-        this.orderCache = response.items;
+        this.orderCache.set(response.items);
         return response.items;
       }),
     );
@@ -47,7 +47,21 @@ export class OrderService {
 
     return this.http.post<Order>(`${this.baseUrl}/orders`, createOrder).pipe(
       tap((response) => {
-        this.orderCache = [...this.orderCache, response];
+        this.orderCache.set([response, ...this.orderCache()]);
+      }),
+    );
+  }
+
+  cancelOrder(orderId: number) {
+    return this.http.post(`${this.baseUrl}/orders/cancel/${orderId}`, {}).pipe(
+      tap((res) => {
+        for (let order of this.orderCache()) {
+          if (order.id === orderId) {
+            order.status = 'Cancelled';
+            this.orderCache.set([...this.orderCache()]);
+            break;
+          }
+        }
       }),
     );
   }

@@ -15,6 +15,7 @@ import { OrderSummaryComponent } from '../order-summary/order-summary.component'
 export class OrderListComponent implements OnInit {
   orders: WritableSignal<Order[]> = signal([]);
   orderItems: WritableSignal<OrderItem[]> = signal([]);
+  orderInView: Order | null = null;
 
   constructor(private orderService: OrderService) {}
   ngOnInit(): void {
@@ -30,7 +31,35 @@ export class OrderListComponent implements OnInit {
     for (let order of this.orders()) {
       if (order.id === id) {
         this.orderItems.set(order.orderItems);
+        this.orderInView = order;
       }
     }
+  }
+
+  onCancelOrderClick() {
+    if (!this.orderInView) {
+      return;
+    }
+
+    this.orderService.cancelOrder(this.orderInView.id).subscribe({
+      next: () => {
+        for (let order of this.orders()) {
+          if (order.id === this.orderInView?.id) {
+            order.status = 'Cancelled';
+            this.orders.set(this.orders());
+            break;
+          }
+        }
+      },
+    });
+  }
+
+  showCancelOrderButton() {
+    return (
+      this.orderInView &&
+      this.orderInView.status !== 'Shipped' &&
+      this.orderInView.status !== 'Cancelled' &&
+      this.orderInView.status !== 'Delivered'
+    );
   }
 }

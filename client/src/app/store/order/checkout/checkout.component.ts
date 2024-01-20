@@ -109,6 +109,7 @@ export class CheckoutComponent implements OnInit {
 
     this.orderService.createOrder(id)?.subscribe({
       next: (response) => {
+        this.cartService.cartItems.set([]);
         this.router.navigateByUrl('/orders');
       },
     });

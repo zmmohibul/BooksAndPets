@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class UserAddressUpdate : Migration
+    public partial class OrderUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -347,7 +347,7 @@ namespace API.Data.Migrations
                     UserId = table.Column<string>(type: "text", nullable: true),
                     AddressId = table.Column<int>(type: "integer", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    OrderStatus = table.Column<int>(type: "integer", nullable: false)
+                    OrderStatus = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

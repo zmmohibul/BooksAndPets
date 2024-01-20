@@ -38,4 +38,11 @@ public class OrdersController : BaseApiController
         
         return HandleResult(result);
     }
+
+    [HttpPost("cancel/{orderId}")]
+    public async Task<IActionResult> CancelOrder(int orderId)
+    {
+        var userName = User.FindFirst(ClaimTypes.Name)?.Value;
+        return HandleResult(await _orderRepository.CancelOrder(userName, orderId));
+    }
 }

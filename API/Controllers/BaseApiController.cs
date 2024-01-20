@@ -7,40 +7,16 @@ namespace API.Controllers;
 
 public class BaseApiController : ControllerBase
 {
-    public IActionResult HandleResult<T>(Result<T> result)
+    protected IActionResult HandleResult<T>(Result<T> result)
     {
-        if (result.StatusCode == 200)
+        return result.StatusCode switch
         {
-            return Ok(result.Data);
-        }
-        
-        if (result.StatusCode == 204)
-        {
-            return NoContent();
-        }
-        
-        if (result.StatusCode == 401)
-        {
-            return Unauthorized(new ApiErrorResponse()
-            {
-                StatusCode = result.StatusCode,
-                ErrorMessage = result.Message
-            });
-        }
-
-        if (result.StatusCode == 404)
-        {
-            return NotFound(new ApiErrorResponse()
-            {
-                StatusCode = result.StatusCode,
-                ErrorMessage = result.Message
-            });
-        }
-
-        return BadRequest(new ApiErrorResponse()
-        {
-            StatusCode = result.StatusCode,
-            ErrorMessage = result.Message
-        });
+            200 => Ok(result.Data),
+            204 => NoContent(),
+            401 => Unauthorized(new ApiErrorResponse() { StatusCode = result.StatusCode, ErrorMessage = result.Message }),
+            403 => Forbid(result.Message),
+            404 => NotFound(new ApiErrorResponse() { StatusCode = result.StatusCode, ErrorMessage = result.Message }),
+            _ => BadRequest(new ApiErrorResponse() { StatusCode = result.StatusCode, ErrorMessage = result.Message })
+        };
     }
 }

@@ -11,8 +11,8 @@ public class Order
     public int AddressId { get; set; }
     public Address Address { get; set; }
     
-    public DateTime OrderDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
-    public OrderStatus OrderStatus { get; set; } = OrderStatus.OrderReceived;
+    public DateTime OrderDate { get; set; } = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
+    public OrderStatus OrderStatus { get; set; }
 
     public ICollection<OrderItem> OrderItems { get; set; }
 }

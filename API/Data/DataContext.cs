@@ -40,6 +40,10 @@ public class DataContext : IdentityDbContext<User>
             .WithMany(dep => dep.Products)
             .HasForeignKey(prod => prod.DepartmentId)
             .OnDelete(DeleteBehavior.NoAction);
+        
+        modelBuilder.Entity<Order>()
+            .Property(o => o.OrderStatus)
+            .HasConversion<string>();
 
         modelBuilder.Entity<Department>()
             .HasMany(dep => dep.Products)

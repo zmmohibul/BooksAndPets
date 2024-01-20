@@ -13,7 +13,7 @@
             <h5 class="card-title">
               <span>Order#{{ order.id }}</span>
             </h5>
-            <p class="card-text mb-1">Order Date: {{ order.orderDate }}</p>
+            <p class="card-text mb-1">Order Date: {{ order.orderDate | date: 'medium' }} </p>
             <p class="card-text mb-1">Status: {{ order.status }}</p>
           </div>
         </div>
@@ -25,6 +25,11 @@
 
 
     <div class="col-8" *ngIf="orderItems().length">
+      <h4 class="text-center">Order Summary</h4>
+
+      <div *ngIf="showCancelOrderButton()" class="d-flex justify-content-end mx-5">
+        <button (click)="onCancelOrderClick()" class="btn btn-dark px-5">Cancel Order</button>
+      </div>
       <app-order-summary [orderSummaryItems]="orderItems()"></app-order-summary>
     </div>
 

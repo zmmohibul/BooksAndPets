@@ -251,8 +251,9 @@ namespace API.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("integer");
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .HasColumnType("text");
