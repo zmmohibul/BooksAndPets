@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class OrderUpdate : Migration
+    public partial class ReviewRating : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -303,6 +303,8 @@ namespace API.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DepartmentId = table.Column<int>(type: "integer", nullable: false),
+                    AverageRating = table.Column<double>(type: "double precision", nullable: false),
+                    RatingCount = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true)
                 },
@@ -511,6 +513,41 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ReviewRatings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    Review = table.Column<string>(type: "text", nullable: true),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: true),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    OrderId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReviewRatings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReviewRatings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ReviewRatings_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReviewRatings_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AuthorBook",
                 columns: table => new
                 {
@@ -665,6 +702,21 @@ namespace API.Data.Migrations
                 name: "IX_Products_DepartmentId",
                 table: "Products",
                 column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewRatings_OrderId",
+                table: "ReviewRatings",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewRatings_ProductId",
+                table: "ReviewRatings",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewRatings_UserId",
+                table: "ReviewRatings",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -701,6 +753,9 @@ namespace API.Data.Migrations
                 name: "ProductPictures");
 
             migrationBuilder.DropTable(
+                name: "ReviewRatings");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -713,10 +768,10 @@ namespace API.Data.Migrations
                 name: "ProductCategories");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "ProductMeasureOptions");
 
             migrationBuilder.DropTable(
-                name: "ProductMeasureOptions");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "AuthorPicture");
@@ -731,10 +786,10 @@ namespace API.Data.Migrations
                 name: "Publishers");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "ProductMeasureTypes");
 
             migrationBuilder.DropTable(
-                name: "ProductMeasureTypes");
+                name: "Address");
 
             migrationBuilder.DropTable(
                 name: "ProductDepartments");

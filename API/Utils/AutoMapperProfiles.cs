@@ -7,6 +7,7 @@ using API.Dtos.OrderDtoAggregate;
 using API.Dtos.ProductDtoAggregate.CategoryDtos;
 using API.Dtos.ProductDtoAggregate.DepartmentDtos;
 using API.Dtos.ProductDtoAggregate.ProductDtos;
+using API.Dtos.ProductDtoAggregate.ReviewRatingDtos;
 using API.Entities.BookAggregate;
 using API.Entities.Identity;
 using API.Entities.OrderAggregate;
@@ -40,7 +41,9 @@ public class AutoMapperProfiles : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Product.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
             .ForMember(dest => dest.MainPictureUrl, opt => opt.MapFrom(src => src.Product.Pictures.FirstOrDefault(pic => pic.IsMain).Url))
-            .ForMember(dest => dest.PriceList, opt => opt.MapFrom(src => src.Product.PriceList));
+            .ForMember(dest => dest.PriceList, opt => opt.MapFrom(src => src.Product.PriceList))
+            .ForMember(dest => dest.AverageRating, opt => opt.MapFrom(src => src.Product.AverageRating))
+            .ForMember(dest => dest.RatingCount, opt => opt.MapFrom(src => src.Product.RatingCount));
         CreateMap<Book, BookDetailsDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Product.Description))
@@ -78,5 +81,8 @@ public class AutoMapperProfiles : Profile
                 opt => opt.MapFrom(src => src.Product.Pictures.FirstOrDefault(pic => pic.IsMain).Url));
         CreateMap<Order, OrderDto>()
             .ForMember(d => d.Status, opt => opt.MapFrom(s => s.OrderStatus));
+
+        CreateMap<ReviewRating, ReviewRatingDto>()
+            .ForMember(d => d.UserName, o => o.MapFrom(s => s.User.UserName));
     }
 }

@@ -15,14 +15,12 @@ public class OrderRepository : IOrderRepository
 {
     private readonly DataContext _context;
     private readonly UserManager<User> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IMapper _mapper;
 
-    public OrderRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
+    public OrderRepository(DataContext context, UserManager<User> userManager,  IMapper mapper)
     {
         _context = context;
         _userManager = userManager;
-        _roleManager = roleManager;
         _mapper = mapper;
     }
 
@@ -38,6 +36,7 @@ public class OrderRepository : IOrderRepository
             .AsNoTracking()
             .Where(o => o.UserId.Equals(user.Id))
             .Include(o => o.OrderItems)
+            .OrderByDescending(o => o.Id)
             .ProjectTo<OrderDto>(_mapper.ConfigurationProvider);
 
         var data = await PaginatedList<OrderDto>

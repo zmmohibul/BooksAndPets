@@ -12,4 +12,6 @@ public class ProductDto
     public ICollection<CategoryDetailsDto> Categories { get; set; }
     public ICollection<ProductPictureDto> Pictures { get; set; }
     public ICollection<PriceDto> PriceList { get; set; }
+    public double AverageRating { get; set; }
+    public int RatingCount { get; set; }
 }

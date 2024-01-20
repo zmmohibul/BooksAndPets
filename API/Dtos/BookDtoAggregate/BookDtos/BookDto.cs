@@ -14,5 +14,6 @@ public class BookDto
     public string HighlightText { get; set; }
     public ICollection<AuthorDto> Authors { get; set; }
     public DateTime PublicationDate { get; set; }
-    // "System.Collections.Generic.List`1[System.String]"
+    public double AverageRating { get; set; }
+    public int RatingCount { get; set; }
 }

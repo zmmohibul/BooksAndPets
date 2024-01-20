@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240120143217_OrderUpdate")]
-    partial class OrderUpdate
+    [Migration("20240120164258_ReviewRating")]
+    partial class ReviewRating
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -462,6 +462,9 @@ namespace API.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("AverageRating")
+                        .HasColumnType("double precision");
+
                     b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
@@ -471,11 +474,51 @@ namespace API.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int>("RatingCount")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("API.Entities.ProductAggregate.ReviewRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Review")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ReviewRatings");
                 });
 
             modelBuilder.Entity("AuthorBook", b =>
@@ -795,6 +838,31 @@ namespace API.Data.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("API.Entities.ProductAggregate.ReviewRating", b =>
+                {
+                    b.HasOne("API.Entities.OrderAggregate.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.ProductAggregate.Product", "Product")
+                        .WithMany("ReviewRatings")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Identity.User", "User")
+                        .WithMany("ReviewRatings")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("AuthorBook", b =>
                 {
                     b.HasOne("API.Entities.BookAggregate.Author", null)
@@ -889,6 +957,8 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Identity.User", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("ReviewRatings");
                 });
 
             modelBuilder.Entity("API.Entities.OrderAggregate.Order", b =>
@@ -927,6 +997,8 @@ namespace API.Data.Migrations
                     b.Navigation("Pictures");
 
                     b.Navigation("PriceList");
+
+                    b.Navigation("ReviewRatings");
                 });
 #pragma warning restore 612, 618
         }

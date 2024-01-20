@@ -10,5 +10,10 @@ public class Product : BaseEntityWithNameAndDescription
     public ICollection<Category> Categories { get; set; }
     public ICollection<Picture> Pictures { get; set; }
     public ICollection<Price> PriceList { get; set; }
+
+    public double AverageRating { get; set; }
+    public int RatingCount { get; set; }
+    public ICollection<ReviewRating> ReviewRatings { get; set; }
+    
     public ICollection<OrderItem> OrderItems { get; set; }
 }

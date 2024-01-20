@@ -31,6 +31,8 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<User> Users { get; set; }
     public DbSet<Order> Orders { get; set; }
 
+    public DbSet<ReviewRating> ReviewRatings { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
